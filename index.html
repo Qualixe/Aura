@@ -287,17 +287,26 @@
             height: 250px; border-radius: var(--radius-md);
             background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-secondary) 100%);
             display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden; margin-bottom: 1.5rem;
+            position: relative; overflow: hidden; margin-bottom: 1rem;
+            flex-shrink: 0;
         }
-        .product-image-wrap i { font-size: 5rem; color: var(--accent-gold); opacity: 0.8; transition: var(--transition); }
-        .product-card:hover .product-image-wrap i { transform: scale(1.1); }
-        
+        .product-image-wrap > i { font-size: 5rem; color: var(--accent-gold); opacity: 0.8; transition: var(--transition); }
+        .product-card:hover .product-image-wrap > i { transform: scale(1.1); }
+
+        /* Actions row sits BELOW the image, always in the card flow */
         .product-actions {
-            position: absolute; bottom: -50px; left: 0; width: 100%;
-            display: flex; justify-content: center; gap: 0.5rem;
-            opacity: 0; transition: var(--transition);
+            display: flex;
+            justify-content: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .product-card:hover .product-actions { bottom: 15px; opacity: 1; }
+        .product-card:hover .product-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
         
         .product-badges {
             position: absolute; top: 15px; left: 15px;
@@ -488,9 +497,352 @@
         .shop-header { padding: 8rem 0 3rem; text-align: center; background: var(--bg-secondary); margin-bottom: 4rem; }
         .shop-filters { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
         .filter-chips { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem; }
-        .chip { padding: 0.5rem 1.5rem; border: 1px solid var(--glass-border); border-radius: var(--radius-pill); cursor: pointer; transition: var(--transition); background: var(--glass-bg); }
+        .chip { padding: 0.5rem 1.5rem; border: 1px solid var(--glass-border); border-radius: var(--radius-pill); cursor: pointer; transition: var(--transition); background: var(--glass-bg); white-space: nowrap; }
         .chip.active, .chip:hover { background: var(--text-main); color: var(--bg-main); }
         .sort-select { padding: 0.5rem 1rem; border: 1px solid var(--glass-border); border-radius: var(--radius-pill); background: var(--glass-bg); color: var(--text-main); font-family: var(--font-body); outline: none; cursor: pointer; }
+
+        /* ==========================================================================
+           FILTER BUTTON
+           ========================================================================== */
+        .filter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.2rem;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            background: var(--glass-bg);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .filter-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-main);
+            border-color: var(--text-main);
+        }
+        .filter-btn i { font-size: 0.85rem; }
+        .filter-btn .filter-count {
+            background: var(--accent-gold);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        .filter-btn .filter-count.visible { display: flex; }
+
+        /* ==========================================================================
+           FILTER SIDEBAR
+           ========================================================================== */
+        .filter-sidebar {
+            position: fixed;
+            top: 0;
+            left: -420px;
+            width: 380px;
+            max-width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            background: var(--bg-main);
+            z-index: 2001;
+            transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 40px rgba(0, 0, 0, 0.12);
+            border-right: 1px solid var(--glass-border);
+        }
+        .filter-sidebar.active { left: 0; }
+
+        /* Header */
+        .filter-sidebar-header {
+            padding: 1.5rem 1.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            flex-shrink: 0;
+            background: var(--bg-main);
+        }
+        .filter-sidebar-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+        .filter-sidebar-header .close-btn {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            flex-shrink: 0;
+        }
+        .filter-sidebar-header .close-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-main);
+        }
+
+        /* Scrollable body */
+        .filter-sidebar-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .filter-sidebar-body::-webkit-scrollbar { width: 4px; }
+        .filter-sidebar-body::-webkit-scrollbar-track { background: transparent; }
+        .filter-sidebar-body::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 4px;
+        }
+
+        /* Filter groups */
+        .filter-group {
+            padding: 1.5rem 1.75rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .filter-group:last-child { border-bottom: none; }
+
+        .filter-group-title {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        /* Checkbox options */
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.55rem 0.75rem;
+            margin: 0 -0.75rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.925rem;
+            color: var(--text-main);
+            transition: background 0.2s, color 0.2s;
+            user-select: none;
+        }
+        .filter-option:hover {
+            background: var(--bg-secondary);
+        }
+        .filter-option.checked {
+            color: var(--accent-gold);
+        }
+
+        .filter-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid var(--text-muted);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s, border-color 0.2s;
+            background: var(--bg-main);
+            position: relative;
+        }
+        .filter-option:hover .filter-checkbox {
+            border-color: var(--accent-gold);
+        }
+        .filter-option.checked .filter-checkbox {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+        /* Checkmark via SVG-like CSS */
+        .filter-option.checked .filter-checkbox::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 9px;
+            border: 2px solid white;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg) translate(-1px, -1px);
+        }
+
+        /* Price range */
+        .price-range-wrap {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+        .price-input-wrap {
+            flex: 1;
+            position: relative;
+        }
+        .price-input-wrap::before {
+            content: '$';
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            pointer-events: none;
+        }
+        .price-input {
+            width: 100%;
+            padding: 0.6rem 0.75rem 0.6rem 1.6rem;
+            border: 1.5px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+        .price-input::-webkit-outer-spin-button,
+        .price-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        .price-input:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.15);
+        }
+        .price-range-sep {
+            color: var(--text-muted);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* Rating options */
+        .rating-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.55rem 0.75rem;
+            margin: 0 -0.75rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+        }
+        .rating-option:hover { background: var(--bg-secondary); }
+        .rating-option.checked { background: var(--bg-secondary); }
+
+        .rating-stars {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            flex-shrink: 0;
+        }
+        .rating-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .rating-option.checked .rating-label {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+        /* Radio dot for rating */
+        .rating-radio {
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--text-muted);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.2s;
+            margin-left: auto;
+        }
+        .rating-option:hover .rating-radio { border-color: var(--accent-gold); }
+        .rating-option.checked .rating-radio {
+            border-color: var(--accent-gold);
+        }
+        .rating-option.checked .rating-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+        }
+
+        /* Footer */
+        .filter-sidebar-footer {
+            padding: 1.25rem 1.75rem;
+            border-top: 1px solid var(--glass-border);
+            background: var(--bg-secondary);
+            display: flex;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+        .filter-sidebar-footer .btn {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        /* Active filter tags */
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .active-filters:empty { display: none; }
+        .filter-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.75rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+        .filter-tag-remove {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        .filter-tag-remove:hover {
+            background: #d9534f;
+            color: white;
+        }
+
+        /* Results count */
+        .results-count {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
 
         /* ==========================================================================
            RESPONSIVE
@@ -550,11 +902,9 @@
 
             /* Always show actions on touch (no hover) */
             .product-actions {
-                position: static;
                 opacity: 1;
-                margin-top: 0.75rem;
-                padding: 0;
-                justify-content: flex-start;
+                transform: translateY(0);
+                margin-bottom: 0.5rem;
                 gap: 0.4rem;
             }
             .btn-icon { width: 36px; height: 36px; font-size: 0.85rem; }
@@ -596,10 +946,12 @@
 
             /* Shop page */
             .shop-header { padding: 6rem 0 2rem; }
-            .shop-filters { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+            .shop-filters { flex-direction: row; align-items: center; gap: 0.5rem; flex-wrap: nowrap; overflow-x: auto; }
             .filter-chips { gap: 0.5rem; }
             .chip { padding: 0.4rem 1rem; font-size: 0.8rem; white-space: nowrap; }
-            .sort-select { width: 100%; padding: 0.6rem 1rem; }
+            .sort-select { min-width: 130px; padding: 0.6rem 1rem; }
+            .filter-sidebar { max-width: 100%; left: -100%; }
+            .filter-sidebar.active { left: 0; }
 
             /* Modals */
             .modal { padding: 2rem 1.2rem; width: 95%; border-radius: var(--radius-lg); }
@@ -819,6 +1171,80 @@
     <!-- Overlays & Modals -->
     <div class="overlay" id="overlay"></div>
 
+    <!-- Filter Sidebar -->
+    <div class="filter-sidebar" id="filterSidebar">
+        <div class="filter-sidebar-header">
+            <h3>Filters</h3>
+            <i class="fa-solid fa-xmark close-btn" id="closeFilter"></i>
+        </div>
+        <div class="filter-sidebar-body">
+
+            <!-- Category -->
+            <div class="filter-group">
+                <p class="filter-group-title">Category</p>
+                <div class="filter-option" data-filter="category" data-value="Clothing" onclick="toggleFilterOption(this)">
+                    <span class="filter-checkbox"></span> Clothing
+                </div>
+                <div class="filter-option" data-filter="category" data-value="Nursery" onclick="toggleFilterOption(this)">
+                    <span class="filter-checkbox"></span> Nursery
+                </div>
+                <div class="filter-option" data-filter="category" data-value="Toys" onclick="toggleFilterOption(this)">
+                    <span class="filter-checkbox"></span> Toys
+                </div>
+                <div class="filter-option" data-filter="category" data-value="Bath" onclick="toggleFilterOption(this)">
+                    <span class="filter-checkbox"></span> Bath
+                </div>
+            </div>
+
+            <!-- Price Range -->
+            <div class="filter-group">
+                <p class="filter-group-title">Price Range</p>
+                <div class="price-range-wrap">
+                    <div class="price-input-wrap">
+                        <input type="number" class="price-input" id="priceMin" placeholder="Min" min="0" oninput="applyFilters()">
+                    </div>
+                    <span class="price-range-sep">—</span>
+                    <div class="price-input-wrap">
+                        <input type="number" class="price-input" id="priceMax" placeholder="Max" min="0" oninput="applyFilters()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rating -->
+            <div class="filter-group">
+                <p class="filter-group-title">Minimum Rating</p>
+                <div class="rating-option" data-value="5" onclick="toggleRatingFilter(this)">
+                    <span class="rating-stars">★★★★★</span>
+                    <span class="rating-label">5 stars only</span>
+                    <span class="rating-radio"></span>
+                </div>
+                <div class="rating-option" data-value="4" onclick="toggleRatingFilter(this)">
+                    <span class="rating-stars">★★★★☆</span>
+                    <span class="rating-label">4 stars &amp; up</span>
+                    <span class="rating-radio"></span>
+                </div>
+                <div class="rating-option" data-value="3" onclick="toggleRatingFilter(this)">
+                    <span class="rating-stars">★★★☆☆</span>
+                    <span class="rating-label">3 stars &amp; up</span>
+                    <span class="rating-radio"></span>
+                </div>
+            </div>
+
+            <!-- Availability -->
+            <div class="filter-group">
+                <p class="filter-group-title">Availability</p>
+                <div class="filter-option" data-filter="instock" data-value="true" onclick="toggleFilterOption(this)">
+                    <span class="filter-checkbox"></span> In Stock Only
+                </div>
+            </div>
+
+        </div>
+        <div class="filter-sidebar-footer">
+            <button class="btn btn-outline" style="flex:1;" onclick="clearAllFilters()">Clear All</button>
+            <button class="btn btn-primary" style="flex:1;" onclick="closeFilterSidebar()">Show Results</button>
+        </div>
+    </div>
+
     <!-- Cart Sidebar -->
     <div class="sidebar" id="cartSidebar">
         <div class="sidebar-header">
@@ -955,17 +1381,17 @@
                 </div>
                 <div class="product-image-wrap" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
                     <i class="fa-solid ${product.imageIcon}"></i>
-                    <div class="product-actions">
-                        <button class="btn-icon" onclick="toggleWishlist(${product.id})" aria-label="Add to Wishlist">
-                            <i class="fa-${state.wishlist.includes(product.id) ? 'solid' : 'regular'} fa-heart"></i>
-                        </button>
-                        <button class="btn-icon" onclick="addToCart(${product.id})" ${!product.inStock ? 'disabled' : ''} aria-label="Add to Cart">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                        </button>
-                        <button class="btn-icon" onclick="openQuickView(${product.id})" aria-label="Quick View">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-                    </div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn-icon" onclick="toggleWishlist(${product.id})" aria-label="Add to Wishlist">
+                        <i class="fa-${state.wishlist.includes(product.id) ? 'solid' : 'regular'} fa-heart"></i>
+                    </button>
+                    <button class="btn-icon" onclick="addToCart(${product.id})" ${!product.inStock ? 'disabled' : ''} aria-label="Add to Cart">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </button>
+                    <button class="btn-icon" onclick="openQuickView(${product.id})" aria-label="Quick View">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
                 </div>
                 <div class="product-info">
                     <span class="product-category">${product.category}</span>
@@ -1102,7 +1528,7 @@
         };
 
         const closeModals = () => {
-            document.querySelectorAll('.modal, .sidebar, .overlay').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.modal, .sidebar, .filter-sidebar, .overlay').forEach(el => el.classList.remove('active'));
         };
 
         // Tilt effect for product cards
@@ -1253,13 +1679,20 @@
                     </div>
                 </div>
                 <div class="container" style="margin-bottom: 5rem;">
+                    <div class="active-filters" id="activeFilterTags"></div>
                     <div class="shop-filters reveal">
-                        <div class="filter-chips">
-                            <div class="chip active" onclick="filterProducts('All', this)">All</div>
-                            <div class="chip" onclick="filterProducts('Clothing', this)">Clothing</div>
-                            <div class="chip" onclick="filterProducts('Nursery', this)">Nursery</div>
-                            <div class="chip" onclick="filterProducts('Toys', this)">Toys</div>
-                            <div class="chip" onclick="filterProducts('Bath', this)">Bath</div>
+                        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; flex:1;">
+                            <button class="filter-btn" onclick="openFilterSidebar()" id="filterToggleBtn">
+                                <i class="fa-solid fa-sliders"></i> Filters
+                                <span class="filter-count" id="filterCountBadge">0</span>
+                            </button>
+                            <div class="filter-chips">
+                                <div class="chip active" onclick="filterProducts('All', this)">All</div>
+                                <div class="chip" onclick="filterProducts('Clothing', this)">Clothing</div>
+                                <div class="chip" onclick="filterProducts('Nursery', this)">Nursery</div>
+                                <div class="chip" onclick="filterProducts('Toys', this)">Toys</div>
+                                <div class="chip" onclick="filterProducts('Bath', this)">Bath</div>
+                            </div>
                         </div>
                         <select class="sort-select" onchange="sortProducts(this.value)">
                             <option value="featured">Featured</option>
@@ -1268,8 +1701,8 @@
                             <option value="rating">Top Rated</option>
                         </select>
                     </div>
+                    <p class="results-count" id="resultsCount"></p>
                     <div class="grid" id="shopGrid">
-                        <!-- Skeletons shown on load -->
                         ${'<div class="product-card skeleton" style="height: 400px;"></div>'.repeat(8)}
                     </div>
                 </div>
@@ -1324,12 +1757,14 @@
         const renderShopGrid = (items) => {
             const grid = document.getElementById('shopGrid');
             if(!grid) return;
+            const countEl = document.getElementById('resultsCount');
+            if(countEl) countEl.textContent = items.length === 0 ? '' : `${items.length} product${items.length !== 1 ? 's' : ''}`;
             if(items.length === 0) {
-                grid.innerHTML = '<p class="text-muted" style="grid-column: 1/-1; text-align: center; padding: 3rem;">No products found.</p>';
+                grid.innerHTML = '<p class="text-muted" style="grid-column: 1/-1; text-align: center; padding: 3rem;">No products found. <span style="cursor:pointer;text-decoration:underline;" onclick="clearAllFilters()">Clear filters</span></p>';
                 return;
             }
             grid.innerHTML = items.map(p => generateProductCard(p)).join('');
-            initObservers(); // Re-trigger reveal on new elements
+            initObservers();
         };
 
         window.filterProducts = (category, btnElement, initialLoad = false) => {
@@ -1337,15 +1772,11 @@
                 document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
                 btnElement.classList.add('active');
             }
-            
-            currentFilteredProducts = category === 'All' 
-                ? [...products] 
+            currentFilteredProducts = category === 'All'
+                ? [...products]
                 : products.filter(p => p.category === category);
-            
-            // Apply current sort
             const sortVal = document.querySelector('.sort-select')?.value || 'featured';
-            window.sortProducts(sortVal, true); // true = don't double render if just sorting
-            
+            window.sortProducts(sortVal, true);
             if(!initialLoad) renderShopGrid(currentFilteredProducts);
         };
 
@@ -1357,6 +1788,116 @@
                 case 'featured': currentFilteredProducts.sort((a,b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0)); break;
             }
             if(!skipRender) renderShopGrid(currentFilteredProducts);
+        };
+
+        /**
+         * 7b. FILTER SIDEBAR LOGIC
+         */
+        let filterState = { categories: [], minRating: null, minPrice: null, maxPrice: null, inStockOnly: false };
+
+        window.openFilterSidebar = () => {
+            document.getElementById('filterSidebar').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        };
+
+        window.closeFilterSidebar = () => {
+            document.getElementById('filterSidebar').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        };
+
+        window.toggleFilterOption = (el) => {
+            el.classList.toggle('checked');
+            const filter = el.dataset.filter;
+            const value = el.dataset.value;
+            if(filter === 'category') {
+                if(el.classList.contains('checked')) {
+                    if(!filterState.categories.includes(value)) filterState.categories.push(value);
+                } else {
+                    filterState.categories = filterState.categories.filter(c => c !== value);
+                }
+            } else if(filter === 'instock') {
+                filterState.inStockOnly = el.classList.contains('checked');
+            }
+            applyFilters();
+        };
+
+        window.toggleRatingFilter = (el) => {
+            const allRating = document.querySelectorAll('.rating-option');
+            const wasChecked = el.classList.contains('checked');
+            allRating.forEach(r => r.classList.remove('checked'));
+            if(!wasChecked) {
+                el.classList.add('checked');
+                filterState.minRating = parseFloat(el.dataset.value);
+            } else {
+                filterState.minRating = null;
+            }
+            applyFilters();
+        };
+
+        window.applyFilters = () => {
+            const minP = parseFloat(document.getElementById('priceMin')?.value) || null;
+            const maxP = parseFloat(document.getElementById('priceMax')?.value) || null;
+            filterState.minPrice = minP;
+            filterState.maxPrice = maxP;
+
+            let result = [...products];
+
+            if(filterState.categories.length > 0) {
+                result = result.filter(p => filterState.categories.includes(p.category));
+            }
+            if(filterState.minPrice !== null) result = result.filter(p => p.price >= filterState.minPrice);
+            if(filterState.maxPrice !== null) result = result.filter(p => p.price <= filterState.maxPrice);
+            if(filterState.minRating !== null) result = result.filter(p => p.rating >= filterState.minRating);
+            if(filterState.inStockOnly) result = result.filter(p => p.inStock);
+
+            currentFilteredProducts = result;
+            const sortVal = document.querySelector('.sort-select')?.value || 'featured';
+            window.sortProducts(sortVal, true);
+            renderShopGrid(currentFilteredProducts);
+            updateFilterBadge();
+            renderActiveFilterTags();
+        };
+
+        const updateFilterBadge = () => {
+            let count = filterState.categories.length;
+            if(filterState.minRating) count++;
+            if(filterState.minPrice || filterState.maxPrice) count++;
+            if(filterState.inStockOnly) count++;
+            const badge = document.getElementById('filterCountBadge');
+            if(badge) {
+                badge.textContent = count;
+                badge.classList.toggle('visible', count > 0);
+            }
+        };
+
+        const renderActiveFilterTags = () => {
+            const container = document.getElementById('activeFilterTags');
+            if(!container) return;
+            const tags = [];
+            filterState.categories.forEach(c => tags.push({ label: c, remove: () => { filterState.categories = filterState.categories.filter(x => x !== c); document.querySelectorAll(`.filter-option[data-filter="category"][data-value="${c}"]`).forEach(el => el.classList.remove('checked')); applyFilters(); } }));
+            if(filterState.minRating) tags.push({ label: `${filterState.minRating}★ & up`, remove: () => { filterState.minRating = null; document.querySelectorAll('.rating-option').forEach(el => el.classList.remove('checked')); applyFilters(); } });
+            if(filterState.minPrice || filterState.maxPrice) {
+                const label = filterState.minPrice && filterState.maxPrice ? `$${filterState.minPrice}–$${filterState.maxPrice}` : filterState.minPrice ? `From $${filterState.minPrice}` : `Up to $${filterState.maxPrice}`;
+                tags.push({ label, remove: () => { filterState.minPrice = null; filterState.maxPrice = null; const mn = document.getElementById('priceMin'); const mx = document.getElementById('priceMax'); if(mn) mn.value=''; if(mx) mx.value=''; applyFilters(); } });
+            }
+            if(filterState.inStockOnly) tags.push({ label: 'In Stock', remove: () => { filterState.inStockOnly = false; document.querySelectorAll('.filter-option[data-filter="instock"]').forEach(el => el.classList.remove('checked')); applyFilters(); } });
+            container.innerHTML = tags.map((t, i) => `<span class="filter-tag">${t.label} <span class="filter-tag-remove" onclick="removeFilterTag(${i})">✕</span></span>`).join('');
+            window._filterTagRemovers = tags.map(t => t.remove);
+        };
+
+        window.removeFilterTag = (i) => { window._filterTagRemovers[i](); };
+
+        window.clearAllFilters = () => {
+            filterState = { categories: [], minRating: null, minPrice: null, maxPrice: null, inStockOnly: false };
+            document.querySelectorAll('.filter-option.checked, .rating-option.checked').forEach(el => el.classList.remove('checked'));
+            const mn = document.getElementById('priceMin'); const mx = document.getElementById('priceMax');
+            if(mn) mn.value = ''; if(mx) mx.value = '';
+            currentFilteredProducts = [...products];
+            const sortVal = document.querySelector('.sort-select')?.value || 'featured';
+            window.sortProducts(sortVal, true);
+            renderShopGrid(currentFilteredProducts);
+            updateFilterBadge();
+            renderActiveFilterTags();
         };
 
         /**
