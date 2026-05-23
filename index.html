@@ -845,8 +845,318 @@
         }
 
         /* ==========================================================================
-           RESPONSIVE
+           PRODUCT DETAIL PAGE
            ========================================================================== */
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+        .breadcrumb a {
+            color: var(--text-muted);
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .breadcrumb a:hover { color: var(--accent-gold); }
+        .breadcrumb .sep { opacity: 0.4; }
+        .breadcrumb .current { color: var(--text-main); font-weight: 500; }
+
+        /* Main layout */
+        .pdp-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+            padding: 3rem 0 6rem;
+        }
+
+        /* Image gallery */
+        .pdp-gallery { position: sticky; top: calc(var(--nav-height) + 1.5rem); }
+        .pdp-main-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--accent-pink) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .pdp-main-img i {
+            font-size: 8rem;
+            color: var(--accent-gold);
+            opacity: 0.75;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .pdp-main-img:hover i { transform: scale(1.08); }
+        .pdp-main-img .pdp-badge {
+            position: absolute;
+            top: 1.25rem;
+            left: 1.25rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .pdp-thumbnails {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .pdp-thumb {
+            flex: 1;
+            aspect-ratio: 1 / 1;
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s, opacity 0.2s;
+            opacity: 0.6;
+        }
+        .pdp-thumb:hover { opacity: 1; }
+        .pdp-thumb.active { border-color: var(--accent-gold); opacity: 1; }
+        .pdp-thumb i { font-size: 1.5rem; color: var(--accent-gold); }
+
+        /* Info panel */
+        .pdp-info { display: flex; flex-direction: column; gap: 0; }
+
+        .pdp-category {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-gold);
+            margin-bottom: 0.6rem;
+        }
+        .pdp-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Rating row */
+        .pdp-rating-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .pdp-stars { color: var(--accent-gold); font-size: 0.9rem; letter-spacing: 1px; }
+        .pdp-rating-val { font-weight: 600; font-size: 0.9rem; }
+        .pdp-review-count { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Price */
+        .pdp-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+            padding-bottom: 1.75rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .pdp-price {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        .pdp-stock-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--radius-pill);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .pdp-stock-badge.in-stock {
+            background: rgba(72, 187, 120, 0.12);
+            color: #2f855a;
+        }
+        .pdp-stock-badge.out-of-stock {
+            background: rgba(245, 101, 101, 0.12);
+            color: #c53030;
+        }
+        [data-theme="dark"] .pdp-stock-badge.in-stock { color: #68d391; }
+        [data-theme="dark"] .pdp-stock-badge.out-of-stock { color: #fc8181; }
+
+        /* Description */
+        .pdp-desc {
+            font-size: 0.975rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.75rem;
+        }
+
+        /* Feature pills */
+        .pdp-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .pdp-feature-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.9rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-pill);
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        .pdp-feature-pill i { color: var(--accent-gold); font-size: 0.75rem; }
+
+        /* Quantity selector */
+        .pdp-qty-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+        .pdp-qty-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .pdp-qty-ctrl {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+        .pdp-qty-btn {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: background 0.2s;
+            user-select: none;
+            background: none;
+            border: none;
+            font-family: var(--font-body);
+        }
+        .pdp-qty-btn:hover { background: var(--glass-border); }
+        .pdp-qty-val {
+            min-width: 36px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* CTA buttons */
+        .pdp-cta {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        .pdp-cta .btn-primary { flex: 1; padding: 1rem; font-size: 0.875rem; }
+        .pdp-cta .btn-icon { width: 50px; height: 50px; flex-shrink: 0; }
+
+        /* Delivery info */
+        .pdp-delivery {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 1.25rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+        }
+        .pdp-delivery-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+        }
+        .pdp-delivery-row i {
+            width: 20px;
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .pdp-delivery-row span { color: var(--text-muted); }
+        .pdp-delivery-row strong { color: var(--text-main); }
+
+        /* Accordion details */
+        .pdp-accordion { border-top: 1px solid var(--glass-border); }
+        .pdp-accordion-item { border-bottom: 1px solid var(--glass-border); }
+        .pdp-accordion-trigger {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.1rem 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            text-align: left;
+        }
+        .pdp-accordion-trigger i {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        .pdp-accordion-item.open .pdp-accordion-trigger i { transform: rotate(45deg); }
+        .pdp-accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        .pdp-accordion-item.open .pdp-accordion-body {
+            max-height: 300px;
+            padding-bottom: 1.1rem;
+        }
+
+        /* Related products */
+        .pdp-related { padding: 5rem 0; }
+        .pdp-related-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Mobile PDP */
+        @media (max-width: 768px) {
+            .pdp-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 1.5rem 0 4rem;
+            }
+            .pdp-gallery { position: static; }
+            .pdp-main-img i { font-size: 5rem; }
+            .pdp-title { font-size: 1.6rem; }
+            .pdp-price { font-size: 1.6rem; }
+            .pdp-cta { flex-wrap: wrap; }
+            .pdp-cta .btn-primary { min-width: 0; }
+            .pdp-thumbnails { gap: 0.5rem; }
+        }
         @media (max-width: 992px) {
             .editorial-split { flex-direction: column; gap: 2.5rem; }
             .editorial-img { height: 350px; width: 100%; }
@@ -1379,7 +1689,8 @@
                     ${product.bestSeller ? '<span class="badge-tag gold">Bestseller</span>' : ''}
                     ${!product.inStock ? '<span class="badge-tag">Out of Stock</span>' : ''}
                 </div>
-                <div class="product-image-wrap" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                <div class="product-image-wrap" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)"
+                     onclick="window.location.hash='#/product/${product.id}'" style="cursor:pointer;">
                     <i class="fa-solid ${product.imageIcon}"></i>
                 </div>
                 <div class="product-actions">
@@ -1395,7 +1706,7 @@
                 </div>
                 <div class="product-info">
                     <span class="product-category">${product.category}</span>
-                    <h3 class="product-title" onclick="openQuickView(${product.id})">${product.name}</h3>
+                    <h3 class="product-title" onclick="window.location.hash='#/product/${product.id}'">${product.name}</h3>
                     <div class="product-price-rating">
                         <span class="product-price">${formatPrice(product.price)}</span>
                         <div class="product-rating">
@@ -1550,6 +1861,130 @@
         /**
          * 6. VIEWS & ROUTING
          */
+
+        // Standalone product detail view (avoids nested template literal issues)
+        const renderProductView = (id) => {
+            const p = products.find(pr => pr.id === id);
+            if (!p) return '<div class="container" style="padding:8rem 0;text-align:center;"><h2>Product not found.</h2><a href="#/shop" class="btn btn-primary" style="margin-top:2rem;">Back to Shop</a></div>';
+
+            const related = products.filter(pr => pr.category === p.category && pr.id !== p.id).slice(0, 4);
+            const starsHtml = '<i class="fa-solid fa-star"></i>'.repeat(Math.floor(p.rating))
+                + (p.rating % 1 !== 0 ? '<i class="fa-solid fa-star-half-stroke"></i>' : '');
+            const features = [
+                { icon: 'fa-leaf',          text: 'Organic & Sustainable' },
+                { icon: 'fa-shield-halved', text: 'Non-toxic Materials'   },
+                { icon: 'fa-rotate-left',   text: '30-Day Returns'        },
+                { icon: 'fa-truck',         text: 'Free Shipping $75+'    },
+            ];
+            const thumbIcons = [p.imageIcon, 'fa-box-open', 'fa-tag', 'fa-star'];
+            const accordionItems = [
+                { title: 'Materials & Care',   body: 'Made from GOTS-certified organic cotton and sustainably sourced materials. Machine wash cold on gentle cycle. Tumble dry low. Do not bleach.' },
+                { title: 'Sizing & Fit',       body: 'Available in newborn through 24 months. We recommend sizing up for a relaxed fit. Refer to our size guide for exact measurements.' },
+                { title: 'Shipping & Returns', body: 'Standard shipping 3–5 business days. Express 1–2 days. Free returns within 30 days of purchase for unused items in original packaging.' },
+            ];
+
+            const thumbsHtml = thumbIcons.map((icon, i) =>
+                '<div class="pdp-thumb ' + (i === 0 ? 'active' : '') + '" onclick="pdpSelectThumb(this,\'' + icon + '\')">'
+                + '<i class="fa-solid ' + icon + '"></i></div>'
+            ).join('');
+
+            const featuresHtml = features.map(f =>
+                '<span class="pdp-feature-pill"><i class="fa-solid ' + f.icon + '"></i> ' + f.text + '</span>'
+            ).join('');
+
+            const accordionHtml = accordionItems.map((item, i) =>
+                '<div class="pdp-accordion-item" id="pdpAcc' + i + '">'
+                + '<button class="pdp-accordion-trigger" onclick="pdpToggleAccordion(' + i + ')">'
+                + item.title + ' <i class="fa-solid fa-plus"></i></button>'
+                + '<div class="pdp-accordion-body">' + item.body + '</div>'
+                + '</div>'
+            ).join('');
+
+            const relatedHtml = related.length > 0
+                ? '<div class="pdp-related" style="background:var(--bg-secondary);">'
+                  + '<div class="container">'
+                  + '<div class="pdp-related-header reveal">'
+                  + '<h2 class="title-md" style="margin:0;">You May Also Like</h2>'
+                  + '<a href="#/shop?cat=' + p.category + '" class="btn btn-outline" style="font-size:0.8rem;padding:0.6rem 1.4rem;">View All ' + p.category + '</a>'
+                  + '</div>'
+                  + '<div class="grid reveal">' + related.map(r => generateProductCard(r)).join('') + '</div>'
+                  + '</div></div>'
+                : '';
+
+            const wishIcon = state.wishlist.includes(p.id) ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+            const stockBadge = p.inStock
+                ? '<span class="pdp-stock-badge in-stock">&#10003; In Stock</span>'
+                : '<span class="pdp-stock-badge out-of-stock">&#10007; Out of Stock</span>';
+
+            return ''
+                + '<div class="container">'
+                +   '<div class="pdp-layout">'
+
+                // ── Gallery ──
+                +     '<div class="pdp-gallery reveal">'
+                +       '<div class="pdp-main-img">'
+                +         '<div class="pdp-badge">'
+                +           (p.bestSeller ? '<span class="badge-tag gold">Bestseller</span>' : '')
+                +           (!p.inStock   ? '<span class="badge-tag">Out of Stock</span>'   : '')
+                +         '</div>'
+                +         '<i class="fa-solid ' + p.imageIcon + '"></i>'
+                +       '</div>'
+                +       '<div class="pdp-thumbnails">' + thumbsHtml + '</div>'
+                +     '</div>'
+
+                // ── Info ──
+                +     '<div class="pdp-info reveal">'
+                +       '<nav class="breadcrumb" aria-label="Breadcrumb">'
+                +         '<a onclick="window.location.hash=\'#/home\'">Home</a>'
+                +         '<span class="sep">/</span>'
+                +         '<a onclick="window.location.hash=\'#/shop\'">Shop</a>'
+                +         '<span class="sep">/</span>'
+                +         '<a onclick="window.location.hash=\'#/shop?cat=' + p.category + '\'">' + p.category + '</a>'
+                +         '<span class="sep">/</span>'
+                +         '<span class="current">' + p.name + '</span>'
+                +       '</nav>'
+                +       '<p class="pdp-category">' + p.category + '</p>'
+                +       '<h1 class="pdp-title">' + p.name + '</h1>'
+                +       '<div class="pdp-rating-row">'
+                +         '<span class="pdp-stars">' + starsHtml + '</span>'
+                +         '<span class="pdp-rating-val">' + p.rating + '</span>'
+                +         '<span class="pdp-review-count">(24 reviews)</span>'
+                +       '</div>'
+                +       '<div class="pdp-price-row">'
+                +         '<span class="pdp-price">' + formatPrice(p.price) + '</span>'
+                +         stockBadge
+                +       '</div>'
+                +       '<p class="pdp-desc">' + p.desc + ' Crafted with the utmost care for your little one\'s comfort and safety, this piece embodies the Aura philosophy of pure, purposeful design.</p>'
+                +       '<div class="pdp-features">' + featuresHtml + '</div>'
+                +       '<p class="pdp-qty-label">Quantity</p>'
+                +       '<div class="pdp-qty-row">'
+                +         '<div class="pdp-qty-ctrl">'
+                +           '<button class="pdp-qty-btn" onclick="pdpChangeQty(-1)" aria-label="Decrease">&minus;</button>'
+                +           '<span class="pdp-qty-val" id="pdpQty">1</span>'
+                +           '<button class="pdp-qty-btn" onclick="pdpChangeQty(1)" aria-label="Increase">+</button>'
+                +         '</div>'
+                +       '</div>'
+                +       '<div class="pdp-cta">'
+                +         '<button class="btn btn-primary" onclick="pdpAddToCart(' + p.id + ')" ' + (!p.inStock ? 'disabled' : '') + '>'
+                +           '<i class="fa-solid fa-bag-shopping" style="margin-right:0.5rem;"></i>'
+                +           (p.inStock ? 'Add to Cart' : 'Out of Stock')
+                +         '</button>'
+                +         '<button class="btn-icon" onclick="toggleWishlist(' + p.id + ')" id="pdpWishlistBtn" aria-label="Wishlist">'
+                +           '<i class="' + wishIcon + '"></i>'
+                +         '</button>'
+                +       '</div>'
+                +       '<div class="pdp-delivery">'
+                +         '<div class="pdp-delivery-row"><i class="fa-solid fa-truck"></i><span><strong>Free delivery</strong> on orders over $75</span></div>'
+                +         '<div class="pdp-delivery-row"><i class="fa-solid fa-rotate-left"></i><span><strong>Free returns</strong> within 30 days</span></div>'
+                +         '<div class="pdp-delivery-row"><i class="fa-solid fa-lock"></i><span><strong>Secure checkout</strong> &mdash; SSL encrypted</span></div>'
+                +       '</div>'
+                +       '<div class="pdp-accordion">' + accordionHtml + '</div>'
+                +     '</div>'
+                +   '</div>'
+                + '</div>'
+                + relatedHtml;
+        };
+
         const views = {
             home: () => `
                 <section class="hero">
@@ -1706,18 +2141,18 @@
                         ${'<div class="product-card skeleton" style="height: 400px;"></div>'.repeat(8)}
                     </div>
                 </div>
-            `
+            `,
+
+            product: (id) => renderProductView(id)
         };
 
         const renderPage = () => {
             const hash = window.location.hash || '#/home';
             state.currentRoute = hash.split('?')[0];
             const root = document.getElementById('app-root');
-            
-            // Basic Router
+
             if (state.currentRoute === '#/shop') {
                 root.innerHTML = views.shop();
-                // Simulate network request
                 setTimeout(() => {
                     const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
                     const cat = urlParams.get('cat') || 'All';
@@ -1732,7 +2167,14 @@
                         renderShopGrid(products);
                     }
                     initObservers();
-                }, 600); // 600ms skeleton loading
+                }, 600);
+
+            } else if (state.currentRoute.startsWith('#/product/')) {
+                const id = parseInt(state.currentRoute.replace('#/product/', ''));
+                pdpQty = 1;
+                root.innerHTML = views.product(id);
+                initObservers();
+
             } else {
                 root.innerHTML = views.home();
                 initObservers();
@@ -1747,6 +2189,58 @@
                 }
             });
             window.scrollTo(0, 0);
+        };
+
+        /**
+         * 6b. PRODUCT DETAIL PAGE HELPERS
+         */
+        let pdpQty = 1;
+
+        window.pdpChangeQty = (delta) => {
+            pdpQty = Math.max(1, pdpQty + delta);
+            const el = document.getElementById('pdpQty');
+            if (el) el.textContent = pdpQty;
+        };
+
+        window.pdpAddToCart = (id) => {
+            const product = products.find(p => p.id === id);
+            if (!product || !product.inStock) return;
+            const existing = state.cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity += pdpQty;
+            } else {
+                state.cart.push({ ...product, quantity: pdpQty });
+            }
+            saveState();
+            renderCart();
+            document.getElementById('cartSidebar').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+            showToast(`${product.name} added to cart`);
+        };
+
+        window.pdpSelectThumb = (el, icon) => {
+            document.querySelectorAll('.pdp-thumb').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            const mainIcon = document.querySelector('.pdp-main-img > i');
+            if (mainIcon) {
+                mainIcon.style.transform = 'scale(0.8)';
+                mainIcon.style.opacity = '0';
+                setTimeout(() => {
+                    mainIcon.className = `fa-solid ${icon}`;
+                    mainIcon.style.transform = 'scale(1)';
+                    mainIcon.style.opacity = '0.75';
+                }, 200);
+            }
+        };
+
+        window.pdpToggleAccordion = (index) => {
+            const item = document.getElementById(`pdpAcc${index}`);
+            if (!item) return;
+            const isOpen = item.classList.contains('open');
+            // Close all
+            document.querySelectorAll('.pdp-accordion-item').forEach(i => i.classList.remove('open'));
+            // Open clicked if it was closed
+            if (!isOpen) item.classList.add('open');
         };
 
         /**
@@ -2013,7 +2507,7 @@
                 resultsContainer.innerHTML = '<p class="text-muted" style="grid-column: 1/-1;">No products found.</p>';
             } else {
                 resultsContainer.innerHTML = results.map(p => `
-                    <div style="display:flex; gap:1rem; align-items:center; margin-bottom:1rem; cursor:pointer;" onclick="closeModals(); window.location.hash='#/shop'; setTimeout(()=>openQuickView(${p.id}), 600)">
+                    <div style="display:flex; gap:1rem; align-items:center; margin-bottom:1rem; cursor:pointer;" onclick="closeModals(); window.location.hash='#/product/${p.id}'">
                         <div style="width:50px; height:50px; background:var(--bg-secondary); display:flex; align-items:center; justify-content:center; border-radius:8px;">
                             <i class="fa-solid ${p.imageIcon}"></i>
                         </div>
