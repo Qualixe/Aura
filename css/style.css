@@ -221,6 +221,54 @@ img { max-width: 100%; height: auto; display: block; }
     background: var(--bg-secondary);
 }
 
+/* Theme-aware overlay — light: warm white fade, dark: deep dark fade */
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    /* Light mode: warm white bleeds in from left, fades to transparent */
+    background: linear-gradient(
+        to right,
+        rgba(252, 251, 249, 0.92) 0%,
+        rgba(252, 251, 249, 0.75) 35%,
+        rgba(252, 251, 249, 0.15) 65%,
+        rgba(252, 251, 249, 0.0) 100%
+    );
+    transition: background 0.5s ease;
+}
+
+/* Dark mode: deep charcoal fade — keeps image visible but readable */
+[data-theme="dark"] .hero-overlay {
+    background: linear-gradient(
+        to right,
+        rgba(26, 25, 24, 0.96) 0%,
+        rgba(26, 25, 24, 0.82) 35%,
+        rgba(26, 25, 24, 0.35) 65%,
+        rgba(26, 25, 24, 0.0) 100%
+    );
+}
+
+/* On mobile the gradient goes top-to-bottom since content is centered */
+@media (max-width: 768px) {
+    .hero-overlay {
+        background: linear-gradient(
+            to bottom,
+            rgba(252, 251, 249, 0.0) 0%,
+            rgba(252, 251, 249, 0.88) 40%,
+            rgba(252, 251, 249, 0.97) 100%
+        );
+    }
+    [data-theme="dark"] .hero-overlay {
+        background: linear-gradient(
+            to bottom,
+            rgba(26, 25, 24, 0.0) 0%,
+            rgba(26, 25, 24, 0.88) 40%,
+            rgba(26, 25, 24, 0.97) 100%
+        );
+    }
+}
+
 .hero-content {
     position: relative; z-index: 1; max-width: 800px;
 }
