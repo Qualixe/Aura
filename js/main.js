@@ -290,3 +290,104 @@ window.createRipple = (event) => {
     btn.querySelector('.ripple')?.remove();
     btn.appendChild(circle);
 };
+
+/* ==========================================================================
+   TESTIMONIAL SLIDER
+   ========================================================================== */
+let currentSlide = 0;
+let sliderTimer  = null;
+
+window.goToSlide = (index) => {
+    const track = document.querySelector('.testimonial-viewport .testimonial-track');
+    const dots  = document.querySelectorAll('.slider-controls .dot');
+    const total = dots.length;
+    if (!track || !total) return;
+
+    index = ((index % total) + total) % total;
+    track.style.transition = 'transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    track.style.transform  = `translateX(-${index * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    currentSlide = index;
+};
+
+const startSliderAuto = () => {
+    stopSliderAuto();
+    sliderTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
+};
+const stopSliderAuto = () => clearInterval(sliderTimer);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const slider   = document.querySelector('.testimonial-slider');
+    const viewport = document.querySelector('.testimonial-viewport');
+    const track    = document.querySelector('.testimonial-viewport .testimonial-track');
+    if (!slider || !viewport || !track) return;
+
+    startSliderAuto();
+
+    /* ── Drag / swipe with Pointer Events (works for mouse + touch + stylus) ── */
+    let startX    = 0;
+    let currentX  = 0;
+    let isDragging = false;
+    let baseOffset = 0;   // translateX at drag start in px
+
+    const getViewportWidth = () => viewport.offsetWidth;
+
+    const setTrackX = (px) => {
+        track.style.transition = 'none';
+        track.style.transform  = `translateX(${px}px)`;
+    };
+
+    slider.addEventListener('pointerdown', (e) => {
+        // Only left-button mouse or touch
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        isDragging = true;
+        startX     = e.clientX;
+        baseOffset = -(currentSlide * getViewportWidth());
+        stopSliderAuto();
+        slider.setPointerCapture(e.pointerId);
+        slider.style.cursor = 'grabbing';
+        e.preventDefault();
+    });
+
+    slider.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const delta = e.clientX - startX;
+        currentX    = baseOffset + delta;
+
+        // Resist dragging past first/last slide
+        const total = document.querySelectorAll('.slider-controls .dot').length;
+        const min   = -(( total - 1) * getViewportWidth());
+        const resistance = 0.3;
+        let x = currentX;
+        if (x > 0)   x = x * resistance;
+        if (x < min) x = min + (x - min) * resistance;
+
+        setTrackX(x);
+    });
+
+    const endDrag = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        slider.style.cursor = '';
+
+        const delta     = e.clientX - startX;
+        const threshold = getViewportWidth() * 0.2; // 20% of width to trigger slide
+        const total     = document.querySelectorAll('.slider-controls .dot').length;
+
+        if (delta < -threshold) {
+            goToSlide(Math.min(currentSlide + 1, total - 1));
+        } else if (delta > threshold) {
+            goToSlide(Math.max(currentSlide - 1, 0));
+        } else {
+            // Snap back to current
+            goToSlide(currentSlide);
+        }
+        startSliderAuto();
+    };
+
+    slider.addEventListener('pointerup',     endDrag);
+    slider.addEventListener('pointercancel', endDrag);
+
+    // Prevent text/image drag interfering
+    slider.addEventListener('dragstart', e => e.preventDefault());
+});

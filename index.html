@@ -105,15 +105,29 @@
 
         <section class="section-padding container">
             <div class="testimonial-slider reveal">
-                <div class="testimonial-slide active">
-                    <i class="fa-solid fa-quote-left quote-icon"></i>
-                    <p class="testimonial-text">"The quality of the cashmere blanket is unmatched. It has become a cherished heirloom in our nursery, soft enough for newborn skin but durable enough for everyday life."</p>
-                    <p class="testimonial-author">Sarah J. — Mother of two</p>
+                <div class="testimonial-viewport">
+                    <div class="testimonial-track">
+                        <div class="testimonial-slide">
+                            <i class="fa-solid fa-quote-left quote-icon"></i>
+                            <p class="testimonial-text">"The quality of the cashmere blanket is unmatched. It has become a cherished heirloom in our nursery, soft enough for newborn skin but durable enough for everyday life."</p>
+                            <p class="testimonial-author">Sarah J. — Mother of two</p>
+                        </div>
+                        <div class="testimonial-slide">
+                            <i class="fa-solid fa-quote-left quote-icon"></i>
+                            <p class="testimonial-text">"Aura's organic onesies are the only thing my baby wears. The fabric is impossibly soft and the fit is perfect. Worth every penny."</p>
+                            <p class="testimonial-author">Mia K. — First-time mum</p>
+                        </div>
+                        <div class="testimonial-slide">
+                            <i class="fa-solid fa-quote-left quote-icon"></i>
+                            <p class="testimonial-text">"The rattan bassinet is a work of art. It looks stunning in our nursery and my daughter sleeps beautifully in it. Truly heirloom quality."</p>
+                            <p class="testimonial-author">Priya M. — Interior designer & mother</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="slider-controls">
-                    <div class="dot active"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
+                    <div class="dot active" onclick="goToSlide(0)"></div>
+                    <div class="dot" onclick="goToSlide(1)"></div>
+                    <div class="dot" onclick="goToSlide(2)"></div>
                 </div>
             </div>
         </section>
@@ -133,16 +147,31 @@
             <h2 class="title-md text-center" style="margin-bottom: 3rem;">Common Questions</h2>
             <div style="max-width: 800px; margin: 0 auto;">
                 <div class="faq-item" onclick="this.classList.toggle('active')">
-                    <div class="faq-question">What materials do you use? <i class="fa-solid fa-plus faq-icon"></i></div>
-                    <div class="faq-answer">We strictly use GOTS-certified organic cotton, sustainable beechwood, non-toxic water-based dyes, and hypoallergenic materials to ensure absolute safety for your child.</div>
+                    <div class="faq-question">
+                        <span class="faq-question-text">What materials do you use?</span>
+                        <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                    </div>
+                    <div class="faq-answer-wrap">
+                        <div class="faq-answer">We strictly use GOTS-certified organic cotton, sustainable beechwood, non-toxic water-based dyes, and hypoallergenic materials to ensure absolute safety for your child.</div>
+                    </div>
                 </div>
                 <div class="faq-item" onclick="this.classList.toggle('active')">
-                    <div class="faq-question">What is your return policy? <i class="fa-solid fa-plus faq-icon"></i></div>
-                    <div class="faq-answer">We accept returns within 30 days of purchase for unused items in their original packaging. Simply initiate a return through our portal.</div>
+                    <div class="faq-question">
+                        <span class="faq-question-text">What is your return policy?</span>
+                        <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                    </div>
+                    <div class="faq-answer-wrap">
+                        <div class="faq-answer">We accept returns within 30 days of purchase for unused items in their original packaging. Simply initiate a return through our portal.</div>
+                    </div>
                 </div>
                 <div class="faq-item" onclick="this.classList.toggle('active')">
-                    <div class="faq-question">Do you ship internationally? <i class="fa-solid fa-plus faq-icon"></i></div>
-                    <div class="faq-answer">Yes, we offer worldwide shipping. Shipping costs and transit times are calculated at checkout based on your location.</div>
+                    <div class="faq-question">
+                        <span class="faq-question-text">Do you ship internationally?</span>
+                        <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                    </div>
+                    <div class="faq-answer-wrap">
+                        <div class="faq-answer">Yes, we offer worldwide shipping. Shipping costs and transit times are calculated at checkout based on your location.</div>
+                    </div>
                 </div>
             </div>
         </section>
