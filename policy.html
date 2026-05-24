@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policies | Aura Luxury Baby Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ── Page Hero ── */
+        .page-hero {
+            padding: 10rem 0 5rem;
+            background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-secondary) 100%);
+            text-align: center;
+        }
+
+        /* ── Sticky sidebar nav ── */
+        .policy-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .policy-nav {
+            position: sticky;
+            top: calc(var(--nav-height) + 2rem);
+        }
+        .policy-nav-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .policy-nav ul { list-style: none; padding: 0; margin: 0; }
+        .policy-nav li { margin-bottom: 0.25rem; }
+        .policy-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.55rem 0.75rem;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .policy-nav a:hover,
+        .policy-nav a.active {
+            background: var(--bg-secondary);
+            color: var(--text-main);
+        }
+        .policy-nav a i { width: 16px; color: var(--accent-gold); font-size: 0.8rem; }
+
+        /* ── Policy sections ── */
+        .policy-section {
+            padding-top: 1rem;
+            padding-bottom: 3.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            scroll-margin-top: calc(var(--nav-height) + 2rem);
+        }
+        .policy-section:last-child { border-bottom: none; }
+
+        .policy-section-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-gold);
+            margin-bottom: 0.75rem;
+        }
+        .policy-section h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .policy-section p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+        }
+        .policy-section p:last-child { margin-bottom: 0; }
+        .policy-section h3 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 2rem 0 0.75rem;
+        }
+        .policy-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .policy-section ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .policy-section ul li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            flex-shrink: 0;
+            margin-top: 0.55rem;
+        }
+
+        /* ── Info box ── */
+        .policy-info-box {
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--accent-gold);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .policy-info-box strong { color: var(--text-main); }
+
+        /* ── Last updated badge ── */
+        .policy-updated {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            background: var(--bg-secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--radius-pill);
+            margin-bottom: 2rem;
+        }
+        .policy-updated i { color: var(--accent-gold); font-size: 0.7rem; }
+
+        @media (max-width: 992px) {
+            .policy-layout { grid-template-columns: 1fr; gap: 2rem; }
+            .policy-nav { position: static; }
+            .policy-nav ul { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+            .policy-nav li { margin: 0; }
+            .policy-nav a { padding: 0.4rem 1rem; border: 1px solid var(--glass-border); }
+        }
+        @media (max-width: 768px) {
+            .page-hero { padding: 8rem 0 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">AURA.</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="about.html" class="nav-link">Our Story</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="themeToggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+                <button id="searchBtn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button aria-label="Wishlist"><i class="fa-regular fa-heart"></i><span class="badge" id="wishlistCount">0</span></button>
+                <button id="cartBtn" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i><span class="badge" id="cartCount">0</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- Hero -->
+        <section class="page-hero">
+            <div class="container reveal">
+                <span class="hero-subtitle">Transparency First</span>
+                <h1 class="title-lg">Our Policies</h1>
+                <p class="text-lead" style="max-width: 600px; margin: 1.5rem auto 0;">
+                    We believe in complete transparency. Everything you need to know about how we operate, protect your data, and handle your orders.
+                </p>
+            </div>
+        </section>
+
+        <!-- Policy Content -->
+        <section class="section-padding container">
+            <div class="policy-layout">
+
+                <!-- Sidebar nav -->
+                <aside class="policy-nav reveal">
+                    <p class="policy-nav-title">Jump to</p>
+                    <ul>
+                        <li><a href="#privacy" class="active"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a></li>
+                        <li><a href="#terms"><i class="fa-solid fa-file-contract"></i> Terms of Service</a></li>
+                        <li><a href="#shipping"><i class="fa-solid fa-truck"></i> Shipping &amp; Returns</a></li>
+                        <li><a href="#sustainability"><i class="fa-solid fa-leaf"></i> Sustainability</a></li>
+                        <li><a href="#cookies"><i class="fa-solid fa-cookie-bite"></i> Cookie Policy</a></li>
+                    </ul>
+                </aside>
+
+                <!-- Policy sections -->
+                <div>
+
+                    <!-- Privacy Policy -->
+                    <div class="policy-section reveal" id="privacy">
+                        <p class="policy-section-label">Privacy Policy</p>
+                        <h2>How we handle your data</h2>
+                        <span class="policy-updated"><i class="fa-solid fa-circle-info"></i> Last updated: January 1, 2026</span>
+
+                        <p>At Aura Baby, your privacy is fundamental to everything we do. This policy explains what personal information we collect, how we use it, and the choices you have.</p>
+
+                        <h3>Information We Collect</h3>
+                        <ul>
+                            <li>Account information: name, email address, and password when you create an account.</li>
+                            <li>Order information: billing address, shipping address, and payment details (processed securely — we never store full card numbers).</li>
+                            <li>Usage data: pages visited, products viewed, and interactions with our site to improve your experience.</li>
+                            <li>Communications: messages you send us via email or our contact form.</li>
+                        </ul>
+
+                        <h3>How We Use Your Information</h3>
+                        <p>We use your data to process and fulfil orders, send order confirmations and shipping updates, personalise your shopping experience, and improve our products and services. We will only send marketing emails if you have opted in, and you can unsubscribe at any time.</p>
+
+                        <div class="policy-info-box">
+                            <strong>We never sell your data.</strong> Your personal information is never sold, rented, or shared with third parties for their marketing purposes.
+                        </div>
+
+                        <h3>Data Retention &amp; Your Rights</h3>
+                        <p>You have the right to access, correct, or delete your personal data at any time. To exercise these rights, email us at <a href="mailto:privacy@aurababy.com" style="color: var(--accent-gold);">privacy@aurababy.com</a>. We retain order data for 7 years as required by law, but all other personal data is deleted upon request.</p>
+
+                        <h3>Cookies</h3>
+                        <p>We use essential cookies to keep your cart and session active, and optional analytics cookies to understand how visitors use our site. See our <a href="#cookies" style="color: var(--accent-gold);">Cookie Policy</a> for full details.</p>
+                    </div>
+
+                    <!-- Terms of Service -->
+                    <div class="policy-section reveal" id="terms">
+                        <p class="policy-section-label">Terms of Service</p>
+                        <h2>Terms &amp; Conditions</h2>
+                        <span class="policy-updated"><i class="fa-solid fa-circle-info"></i> Last updated: January 1, 2026</span>
+
+                        <p>By accessing or using the Aura Baby website and purchasing our products, you agree to be bound by these Terms of Service. Please read them carefully.</p>
+
+                        <h3>Use of Our Website</h3>
+                        <p>You may use our website for lawful purposes only. You agree not to use the site in any way that could damage, disable, or impair the site or interfere with any other party's use. Unauthorised use of this website may give rise to a claim for damages.</p>
+
+                        <h3>Product Information</h3>
+                        <p>We make every effort to display our products as accurately as possible. However, colours may vary slightly depending on your screen settings. All product descriptions are provided in good faith and we reserve the right to correct any errors.</p>
+
+                        <h3>Pricing &amp; Payment</h3>
+                        <ul>
+                            <li>All prices are listed in USD and are inclusive of applicable taxes unless stated otherwise.</li>
+                            <li>We reserve the right to change prices at any time without notice.</li>
+                            <li>Payment is due in full at the time of purchase.</li>
+                            <li>We accept Visa, Mastercard, Amex, Apple Pay, Google Pay, and PayPal.</li>
+                        </ul>
+
+                        <h3>Intellectual Property</h3>
+                        <p>All content on this website — including text, images, logos, and design — is the property of Aura Baby and is protected by copyright law. You may not reproduce, distribute, or create derivative works without our express written permission.</p>
+
+                        <h3>Limitation of Liability</h3>
+                        <p>To the fullest extent permitted by law, Aura Baby shall not be liable for any indirect, incidental, or consequential damages arising from your use of our website or products. Our total liability shall not exceed the amount paid for the relevant order.</p>
+                    </div>
+
+                    <!-- Shipping & Returns -->
+                    <div class="policy-section reveal" id="shipping">
+                        <p class="policy-section-label">Shipping &amp; Returns</p>
+                        <h2>Delivery &amp; Return Policy</h2>
+                        <span class="policy-updated"><i class="fa-solid fa-circle-info"></i> Last updated: January 1, 2026</span>
+
+                        <h3>Shipping Options</h3>
+                        <ul>
+                            <li><strong style="color: var(--text-main);">Standard Shipping (US):</strong> 3–5 business days — Free on orders over $75, otherwise $6.95.</li>
+                            <li><strong style="color: var(--text-main);">Express Shipping (US):</strong> 1–2 business days — $14.95.</li>
+                            <li><strong style="color: var(--text-main);">International:</strong> 7–14 business days — Free on orders over $150, otherwise calculated at checkout.</li>
+                        </ul>
+
+                        <div class="policy-info-box">
+                            Orders placed before <strong>2pm EST Monday–Friday</strong> are processed the same day. Orders placed on weekends or public holidays are processed the next business day.
+                        </div>
+
+                        <h3>Returns</h3>
+                        <p>We want you to love every Aura purchase. If you're not completely satisfied, we accept returns within <strong style="color: var(--text-main);">30 days of delivery</strong> for unused items in their original packaging.</p>
+
+                        <h3>How to Return</h3>
+                        <ul>
+                            <li>Email hello@aurababy.com with your order number and reason for return.</li>
+                            <li>We'll send you a prepaid return label within 1 business day.</li>
+                            <li>Pack the item securely and drop it off at any authorised carrier location.</li>
+                            <li>Refunds are processed within 3–5 business days of receiving your return.</li>
+                        </ul>
+
+                        <h3>Non-Returnable Items</h3>
+                        <ul>
+                            <li>Sale and clearance items (final sale).</li>
+                            <li>Personalised or custom-made products.</li>
+                            <li>Items that have been used, washed, or are not in original condition.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Sustainability -->
+                    <div class="policy-section reveal" id="sustainability">
+                        <p class="policy-section-label">Sustainability</p>
+                        <h2>Our Commitment to the Planet</h2>
+                        <span class="policy-updated"><i class="fa-solid fa-circle-info"></i> Last updated: January 1, 2026</span>
+
+                        <p>Sustainability isn't a marketing term for us — it's a core operating principle. We believe that caring for your child and caring for the planet are inseparable.</p>
+
+                        <h3>Materials</h3>
+                        <ul>
+                            <li>100% GOTS-certified organic cotton across all textile products.</li>
+                            <li>FSC-certified sustainable wood for all wooden toys and furniture.</li>
+                            <li>OEKO-TEX Standard 100 certified — tested for 100+ harmful substances.</li>
+                            <li>Non-toxic, water-based dyes and food-grade finishes on all wooden items.</li>
+                        </ul>
+
+                        <h3>Packaging</h3>
+                        <p>Since June 2022, Aura Baby has been 100% plastic-free in all packaging. We use recycled kraft paper, natural twine, and soy-based inks. Our mailer boxes are made from 80% post-consumer recycled content and are fully recyclable.</p>
+
+                        <h3>Carbon Footprint</h3>
+                        <p>We offset 100% of our shipping emissions through verified carbon offset programmes. We are working towards becoming a certified B Corporation by 2027 and have committed to net-zero operations by 2030.</p>
+
+                        <div class="policy-info-box">
+                            <strong>1% for the Planet:</strong> We donate 1% of all revenue to environmental non-profits focused on reforestation and ocean conservation.
+                        </div>
+
+                        <h3>Artisan Partnerships</h3>
+                        <p>Every artisan in our supply chain is paid a living wage and works in safe, verified conditions. We conduct annual audits of all manufacturing partners and publish the results in our annual transparency report.</p>
+                    </div>
+
+                    <!-- Cookie Policy -->
+                    <div class="policy-section reveal" id="cookies">
+                        <p class="policy-section-label">Cookie Policy</p>
+                        <h2>How we use cookies</h2>
+                        <span class="policy-updated"><i class="fa-solid fa-circle-info"></i> Last updated: January 1, 2026</span>
+
+                        <p>Cookies are small text files stored on your device when you visit our website. We use them to make the site work properly and to understand how it's being used.</p>
+
+                        <h3>Essential Cookies</h3>
+                        <p>These cookies are necessary for the website to function and cannot be switched off. They are set in response to actions you take, such as adding items to your cart or logging in to your account.</p>
+
+                        <h3>Analytics Cookies</h3>
+                        <p>With your consent, we use analytics cookies (via a privacy-first analytics provider) to understand which pages are most popular and how visitors navigate the site. This data is aggregated and anonymous — it cannot be used to identify you.</p>
+
+                        <h3>Marketing Cookies</h3>
+                        <p>We do not use third-party advertising or tracking cookies. We do not share your browsing behaviour with ad networks.</p>
+
+                        <h3>Managing Cookies</h3>
+                        <p>You can control and delete cookies through your browser settings at any time. Disabling essential cookies may affect the functionality of the site. For more information, visit <a href="https://www.allaboutcookies.org" target="_blank" rel="noopener" style="color: var(--accent-gold);">allaboutcookies.org</a>.</p>
+
+                        <div class="policy-info-box">
+                            Questions about our cookie use? Email us at <strong>privacy@aurababy.com</strong> and we'll respond within 2 business days.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem; display: block;">AURA.</a>
+                    <p class="text-muted" style="max-width: 250px;">Curated luxury essentials for the modern nursery. Gentle on baby, elegant for your home.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html?cat=Clothing">Clothing</a></li>
+                        <li><a href="shop.html?cat=Nursery">Nursery</a></li>
+                        <li><a href="shop.html?cat=Toys">Toys</a></li>
+                        <li><a href="shop.html?cat=Bath">Bath &amp; Skincare</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="policy.html#sustainability">Sustainability</a></li>
+                        <li><a href="policy.html#shipping">Shipping &amp; Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="policy.html#privacy">Privacy Policy</a></li>
+                        <li><a href="policy.html#terms">Terms of Service</a></li>
+                        <li><a href="policy.html#cookies">Cookie Policy</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Baby. All rights reserved.</p>
+                <div class="payment-icons" style="display: flex; gap: 1rem; font-size: 1.5rem;">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-cc-amex"></i>
+                    <i class="fa-brands fa-cc-apple-pay"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlays -->
+    <div class="overlay" id="overlay"></div>
+    <div class="sidebar" id="cartSidebar">
+        <div class="sidebar-header"><h3>Your Cart</h3><i class="fa-solid fa-xmark close-btn" id="closeCart"></i></div>
+        <div class="sidebar-content" id="cartItems"></div>
+        <div class="sidebar-footer">
+            <div class="cart-total"><span>Subtotal</span><span id="cartTotalValue">$0.00</span></div>
+            <button class="btn btn-primary" style="width: 100%;" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+    <div class="modal" id="searchModal">
+        <i class="fa-solid fa-xmark close-btn modal-close" id="closeSearch"></i>
+        <div class="search-input-wrap"><input type="text" id="searchInput" placeholder="Search for luxury baby items..."><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div id="searchResults" class="grid"></div>
+    </div>
+    <div class="modal" id="quickViewModal">
+        <i class="fa-solid fa-xmark close-btn modal-close" id="closeQuickView"></i>
+        <div class="qv-grid" id="quickViewContent"></div>
+    </div>
+    <div class="toast-container" id="toastContainer"></div>
+
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="bottom-nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="shop.html" class="bottom-nav-item"><i class="fa-solid fa-bag-shopping"></i><span>Shop</span></a>
+        <button class="bottom-nav-item" id="bnavSearchBtn"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></button>
+        <button class="bottom-nav-item" id="bnavWishlistBtn"><i class="fa-regular fa-heart"></i><span>Wishlist</span><span class="bnav-badge" id="bnavWishlistCount">0</span></button>
+        <button class="bottom-nav-item" id="bnavCartBtn"><i class="fa-solid fa-cart-shopping"></i><span>Cart</span><span class="bnav-badge" id="bnavCartCount">0</span></button>
+    </nav>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Highlight active sidebar nav link on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.policy-section');
+            const navLinks = document.querySelectorAll('.policy-nav a');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-30% 0px -60% 0px' });
+
+            sections.forEach(s => observer.observe(s));
+        });
+    </script>
+</body>
+</html>

@@ -25,23 +25,28 @@
             text-align: center;
             transition: var(--transition);
             backdrop-filter: blur(10px);
-            height: 100%;
         }
         .value-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             box-shadow: var(--glass-shadow);
             border-color: var(--accent-gold);
         }
         .value-icon {
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: var(--accent-gold);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             opacity: 0.8;
+            display: block;
             transition: var(--transition);
         }
         .value-card:hover .value-icon {
             transform: scale(1.1);
             opacity: 1;
+        }
+
+        /* Values section — full-width background, container inside */
+        .values-section {
+            background: var(--bg-secondary);
         }
         
         .quote-section {
@@ -169,7 +174,7 @@
                     <p class="text-lead" style="margin-top: 2rem;">Aura was founded on a simple principle: that the first years of a child's life should be surrounded by the purest materials and the most thoughtful design.</p>
                     <p class="text-lead" style="margin-top: 1rem;">What started as a personal quest for the softest organic cotton has grown into a global community of parents who refuse to compromise on quality or aesthetics. We believe that your home should feel like a sanctuary, and every piece of baby gear should compliment that harmony.</p>
                 </div>
-                <div class="editorial-img" style="background-image: url('https://images.unsplash.com/photo-1519689689353-89701638427f?auto=format&fit=crop&q=80&w=800'); background-size: cover; background-position: center;"></div>
+                <div class="editorial-img" style="background-image: url('https://images.unsplash.com/photo-1522771935876-2497116a7a98?auto=format&fit=crop&q=80&w=800'); background-size: cover; background-position: center;"></div>
             </div>
         </section>
 
@@ -180,28 +185,23 @@
             </div>
         </section>
 
-        <section class="section-padding container" style="background: var(--bg-secondary); border-radius: var(--radius-xl);">
-            <div class="text-center reveal" style="margin-bottom: 5rem;">
-                <span class="hero-subtitle">Our Foundations</span>
-                <h2 class="title-md">Values that guide us.</h2>
-            </div>
-            
-            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                <div class="reveal">
+        <section class="values-section section-padding">
+            <div class="container">
+                <div class="text-center reveal" style="margin-bottom: 4rem;">
+                    <span class="hero-subtitle">Our Foundations</span>
+                    <h2 class="title-md">Values that guide us.</h2>
+                </div>
+                <div class="grid reveal" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
                     <div class="value-card">
                         <i class="fa-solid fa-leaf value-icon"></i>
                         <h3 class="title-sm">100% Organic</h3>
                         <p class="text-muted">We exclusively use GOTS-certified organic cotton and sustainable materials that are gentle on both your baby and the planet.</p>
                     </div>
-                </div>
-                <div class="reveal">
                     <div class="value-card">
                         <i class="fa-solid fa-hand-holding-heart value-icon"></i>
                         <h3 class="title-sm">Ethically Sourced</h3>
                         <p class="text-muted">Every artisan in our supply chain is treated with respect, ensuring fair wages and safe working conditions across the globe.</p>
                     </div>
-                </div>
-                <div class="reveal">
                     <div class="value-card">
                         <i class="fa-solid fa-infinity value-icon"></i>
                         <h3 class="title-sm">Heirloom Quality</h3>
@@ -271,17 +271,18 @@
                     <h4>Information</h4>
                     <ul class="footer-links">
                         <li><a href="about.html">Our Story</a></li>
-                        <li><a href="#">Sustainability</a></li>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="policy.html#sustainability">Sustainability</a></li>
+                        <li><a href="policy.html#shipping">Shipping &amp; Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Contact</h4>
+                    <h4>Legal</h4>
                     <ul class="footer-links">
-                        <li>hello@aurababy.com</li>
-                        <li>+1 (800) 123-4567</li>
-                        <li>123 Luxury Lane, NY</li>
+                        <li><a href="policy.html#privacy">Privacy Policy</a></li>
+                        <li><a href="policy.html#terms">Terms of Service</a></li>
+                        <li><a href="policy.html#cookies">Cookie Policy</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
             </div>

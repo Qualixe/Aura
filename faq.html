@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Aura Luxury Baby Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ── Page Hero ── */
+        .page-hero {
+            padding: 10rem 0 5rem;
+            background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-secondary) 100%);
+            text-align: center;
+        }
+
+        /* ── Category tabs ── */
+        .faq-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 3.5rem;
+        }
+        .faq-tab {
+            padding: 0.55rem 1.4rem;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .faq-tab:hover,
+        .faq-tab.active {
+            background: var(--text-main);
+            color: var(--bg-main);
+            border-color: var(--text-main);
+        }
+
+        /* ── FAQ group heading ── */
+        .faq-group { margin-bottom: 3.5rem; }
+        .faq-group-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-gold);
+            margin-bottom: 1.25rem;
+        }
+
+        /* ── Still need help card ── */
+        .help-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        .help-card .help-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+        .help-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .page-hero { padding: 8rem 0 3.5rem; }
+            .help-card { padding: 3rem var(--px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">AURA.</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="about.html" class="nav-link">Our Story</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="themeToggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+                <button id="searchBtn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button aria-label="Wishlist"><i class="fa-regular fa-heart"></i><span class="badge" id="wishlistCount">0</span></button>
+                <button id="cartBtn" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i><span class="badge" id="cartCount">0</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- Hero -->
+        <section class="page-hero">
+            <div class="container reveal">
+                <span class="hero-subtitle">Help Centre</span>
+                <h1 class="title-lg">Frequently Asked Questions</h1>
+                <p class="text-lead" style="max-width: 600px; margin: 1.5rem auto 0;">
+                    Everything you need to know about our products, orders, and policies. Can't find an answer?
+                    <a href="contact.html" style="color: var(--accent-gold); text-decoration: underline;">Reach out to us.</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- FAQ Content -->
+        <section class="section-padding container">
+            <div style="max-width: 780px; margin: 0 auto;">
+
+                <!-- Category tabs -->
+                <div class="faq-tabs reveal">
+                    <button class="faq-tab active" onclick="filterFaq('all', this)">All</button>
+                    <button class="faq-tab" onclick="filterFaq('orders', this)">Orders & Shipping</button>
+                    <button class="faq-tab" onclick="filterFaq('products', this)">Products</button>
+                    <button class="faq-tab" onclick="filterFaq('returns', this)">Returns</button>
+                    <button class="faq-tab" onclick="filterFaq('account', this)">Account</button>
+                </div>
+
+                <!-- Orders & Shipping -->
+                <div class="faq-group reveal" data-category="orders">
+                    <p class="faq-group-label">Orders &amp; Shipping</p>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">How long does standard shipping take?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Standard shipping takes 3–5 business days within the US. Express shipping (1–2 business days) is available at checkout. International orders typically arrive within 7–14 business days depending on destination.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">Do you offer free shipping?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Yes — all US orders over $75 qualify for free standard shipping. For international orders, free shipping is available on orders over $150. The discount is applied automatically at checkout.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">Do you ship internationally?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Yes, we ship to over 50 countries worldwide. Shipping costs and estimated delivery times are calculated at checkout based on your location. Please note that import duties and taxes may apply and are the responsibility of the recipient.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">How do I track my order?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Once your order ships, you'll receive a confirmation email with a tracking number. You can use this number on our carrier's website or visit your account dashboard to follow your package in real time.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">Can I change or cancel my order?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Orders can be modified or cancelled within 1 hour of placement. After that, our fulfilment team begins processing and changes may not be possible. Please contact us immediately at hello@aurababy.com if you need to make a change.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products -->
+                <div class="faq-group reveal" data-category="products">
+                    <p class="faq-group-label">Products</p>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">What materials do you use?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">We exclusively use GOTS-certified organic cotton, sustainable beechwood, non-toxic water-based dyes, and hypoallergenic materials. Every material is rigorously tested to ensure it is free from harmful chemicals and safe for newborn skin.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">Are your products safe for newborns?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Absolutely. All Aura products are designed with newborn safety as the top priority. Our textiles are OEKO-TEX Standard 100 certified, meaning they have been tested for over 100 harmful substances. Our wooden toys use only food-grade finishes.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">How do I care for my Aura products?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Most of our textiles can be machine washed on a gentle cold cycle and tumble dried on low. Wooden items should be wiped clean with a damp cloth and dried immediately. Specific care instructions are included on each product's label and detail page.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">Do you offer gift wrapping?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Yes! Gift wrapping is available for all orders. You can select this option at checkout and include a personalised message. Our packaging uses recycled kraft paper and natural twine — beautiful and planet-friendly.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Returns -->
+                <div class="faq-group reveal" data-category="returns">
+                    <p class="faq-group-label">Returns &amp; Refunds</p>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">What is your return policy?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">We accept returns within 30 days of delivery for unused items in their original packaging. Sale items and personalised products are final sale. To initiate a return, visit your account dashboard or email us at hello@aurababy.com.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">How long do refunds take?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Once we receive and inspect your return, refunds are processed within 3–5 business days. The credit will appear on your original payment method within 5–10 business days depending on your bank.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">What if my item arrives damaged?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">We're so sorry if this happens. Please photograph the damage and email us at hello@aurababy.com within 48 hours of delivery. We will arrange a replacement or full refund at no cost to you — no need to return the damaged item.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account -->
+                <div class="faq-group reveal" data-category="account">
+                    <p class="faq-group-label">Account &amp; Payments</p>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">What payment methods do you accept?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">We accept all major credit and debit cards (Visa, Mastercard, Amex), Apple Pay, Google Pay, and PayPal. All transactions are secured with SSL encryption and processed through our PCI-compliant payment gateway.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">Is my payment information secure?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Yes. We never store your full card details on our servers. All payment data is handled by our PCI DSS Level 1 certified payment processor. Your information is always encrypted and protected.</div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">
+                            <span class="faq-question-text">Do you offer a loyalty programme?</span>
+                            <span class="faq-icon-wrap"><i class="fa-solid fa-plus faq-icon"></i></span>
+                        </div>
+                        <div class="faq-answer-wrap">
+                            <div class="faq-answer">Yes — the Aura Circle rewards programme lets you earn points on every purchase, which can be redeemed for discounts on future orders. You also get early access to new collections and exclusive member-only offers. Sign up is free.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Still need help -->
+                <div class="help-card reveal">
+                    <i class="fa-regular fa-comment-dots help-icon"></i>
+                    <h2 class="title-md" style="margin-bottom: 0.75rem;">Still have questions?</h2>
+                    <p class="text-lead">Our team is available Monday–Friday, 9am–6pm EST.</p>
+                    <div class="help-actions">
+                        <a href="contact.html" class="btn btn-primary" onclick="createRipple(event)">
+                            <i class="fa-solid fa-envelope" style="margin-right: 0.5rem;"></i> Email Us
+                        </a>
+                        <a href="tel:+18001234567" class="btn btn-outline" onclick="createRipple(event)">
+                            <i class="fa-solid fa-phone" style="margin-right: 0.5rem;"></i> Call Us
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem; display: block;">AURA.</a>
+                    <p class="text-muted" style="max-width: 250px;">Curated luxury essentials for the modern nursery. Gentle on baby, elegant for your home.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html?cat=Clothing">Clothing</a></li>
+                        <li><a href="shop.html?cat=Nursery">Nursery</a></li>
+                        <li><a href="shop.html?cat=Toys">Toys</a></li>
+                        <li><a href="shop.html?cat=Bath">Bath &amp; Skincare</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="policy.html#sustainability">Sustainability</a></li>
+                        <li><a href="policy.html#shipping">Shipping &amp; Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="policy.html#privacy">Privacy Policy</a></li>
+                        <li><a href="policy.html#terms">Terms of Service</a></li>
+                        <li><a href="policy.html#cookies">Cookie Policy</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Baby. All rights reserved.</p>
+                <div class="payment-icons" style="display: flex; gap: 1rem; font-size: 1.5rem;">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-cc-amex"></i>
+                    <i class="fa-brands fa-cc-apple-pay"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlays -->
+    <div class="overlay" id="overlay"></div>
+    <div class="sidebar" id="cartSidebar">
+        <div class="sidebar-header"><h3>Your Cart</h3><i class="fa-solid fa-xmark close-btn" id="closeCart"></i></div>
+        <div class="sidebar-content" id="cartItems"></div>
+        <div class="sidebar-footer">
+            <div class="cart-total"><span>Subtotal</span><span id="cartTotalValue">$0.00</span></div>
+            <button class="btn btn-primary" style="width: 100%;" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+    <div class="modal" id="searchModal">
+        <i class="fa-solid fa-xmark close-btn modal-close" id="closeSearch"></i>
+        <div class="search-input-wrap"><input type="text" id="searchInput" placeholder="Search for luxury baby items..."><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div id="searchResults" class="grid"></div>
+    </div>
+    <div class="modal" id="quickViewModal">
+        <i class="fa-solid fa-xmark close-btn modal-close" id="closeQuickView"></i>
+        <div class="qv-grid" id="quickViewContent"></div>
+    </div>
+    <div class="toast-container" id="toastContainer"></div>
+
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="bottom-nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="shop.html" class="bottom-nav-item"><i class="fa-solid fa-bag-shopping"></i><span>Shop</span></a>
+        <button class="bottom-nav-item" id="bnavSearchBtn"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></button>
+        <button class="bottom-nav-item" id="bnavWishlistBtn"><i class="fa-regular fa-heart"></i><span>Wishlist</span><span class="bnav-badge" id="bnavWishlistCount">0</span></button>
+        <button class="bottom-nav-item" id="bnavCartBtn"><i class="fa-solid fa-cart-shopping"></i><span>Cart</span><span class="bnav-badge" id="bnavCartCount">0</span></button>
+    </nav>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Filter FAQ by category tab
+        window.filterFaq = (category, btn) => {
+            document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.faq-group').forEach(group => {
+                if (category === 'all' || group.dataset.category === category) {
+                    group.style.display = '';
+                } else {
+                    group.style.display = 'none';
+                }
+            });
+        };
+    </script>
+</body>
+</html>

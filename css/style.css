@@ -397,9 +397,9 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .editorial-img {
     flex: 1; height: 600px; border-radius: var(--radius-xl);
-    background: var(--bg-secondary);
     position: relative; overflow: hidden;
     box-shadow: var(--glass-shadow);
+    background-color: var(--bg-secondary); /* fallback color only — does not override background-image */
 }
 .editorial-text { flex: 1; }
 
