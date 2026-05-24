@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Detail | Aura Luxury Baby Essentials</title>
+    <title>Organic Cotton Ribbed Onesie | Aura Luxury Baby</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -33,8 +33,115 @@
         </div>
     </nav>
 
-    <main id="pdpRoot" style="padding:50px 0;">
-        <!-- Injected via JS -->
+    <main id="pdpRoot" style="margin-top: 50px;">
+        <div class="container">
+            <div class="pdp-layout">
+                <!-- Gallery -->
+                <div class="pdp-gallery reveal">
+                    <div class="pdp-main-img">
+                        <div class="pdp-badge">
+                            <span class="badge-tag gold">Bestseller</span>
+                        </div>
+                        <img src="./assets/clothing.jpg" id="pdpMainImage" alt="Organic Cotton Ribbed Onesie" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="pdp-thumbnails">
+                        <div class="pdp-thumb active" onclick="pdpSelectThumb(this, './assets/clothing.jpg')">
+                            <img src="./assets/clothing.jpg" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-md);">
+                        </div>
+                        <div class="pdp-thumb" onclick="pdpSelectThumb(this, 'https://cdn.pixabay.com/photo/2023/03/12/14/10/baby-7847030_1280.jpg')">
+                            <img src="https://cdn.pixabay.com/photo/2023/03/12/14/10/baby-7847030_1280.jpg" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-md);">
+                        </div>
+                        <div class="pdp-thumb" onclick="pdpSelectThumb(this, 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&q=80&w=800')">
+                            <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&q=80&w=400" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-md);">
+                        </div>
+                        <div class="pdp-thumb" onclick="pdpSelectThumb(this, 'https://cdn.pixabay.com/photo/2021/08/22/15/39/kid-6565461_1280.jpg')">
+                            <img src="https://cdn.pixabay.com/photo/2021/08/22/15/39/kid-6565461_1280.jpg" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-md);">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info -->
+                <div class="pdp-info reveal">
+                    <nav class="breadcrumb" aria-label="Breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="sep">/</span>
+                        <a href="shop.html">Shop</a>
+                        <span class="sep">/</span>
+                        <a href="shop.html?cat=Clothing">Clothing</a>
+                        <span class="sep">/</span>
+                        <span class="current">Organic Cotton Ribbed Onesie</span>
+                    </nav>
+                    <p class="pdp-category">Clothing</p>
+                    <h1 class="pdp-title">Organic Cotton Ribbed Onesie</h1>
+                    <div class="pdp-rating-row">
+                        <span class="pdp-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </span>
+                        <span class="pdp-rating-val">5.0</span>
+                        <span class="pdp-review-count">(24 reviews)</span>
+                    </div>
+                    <div class="pdp-price-row">
+                        <span class="pdp-price">$35.00</span>
+                        <span class="pdp-stock-badge in-stock">&#10003; In Stock</span>
+                    </div>
+                    <p class="pdp-desc">Ethically made from 100% organic cotton, incredibly soft against delicate newborn skin. Crafted with the utmost care for your little one's comfort and safety, this piece embodies the Aura philosophy of pure, purposeful design.</p>
+                    
+                    <div class="pdp-features">
+                        <span class="pdp-feature-pill"><i class="fa-solid fa-leaf"></i> Organic & Sustainable</span>
+                        <span class="pdp-feature-pill"><i class="fa-solid fa-shield-halved"></i> Non-toxic Materials</span>
+                        <span class="pdp-feature-pill"><i class="fa-solid fa-rotate-left"></i> 30-Day Returns</span>
+                        <span class="pdp-feature-pill"><i class="fa-solid fa-truck"></i> Free Shipping $75+</span>
+                    </div>
+                    
+                    <p class="pdp-qty-label">Quantity</p>
+                    <div class="pdp-qty-row">
+                        <div class="pdp-qty-ctrl">
+                            <button class="pdp-qty-btn" onclick="pdpChangeQty(-1)" aria-label="Decrease">&minus;</button>
+                            <span class="pdp-qty-val" id="pdpQty">1</span>
+                            <button class="pdp-qty-btn" onclick="pdpChangeQty(1)" aria-label="Increase">+</button>
+                        </div>
+                    </div>
+
+                    <div class="pdp-cta">
+                        <button class="btn btn-primary" onclick="pdpAddToCart(1)">
+                            <i class="fa-solid fa-bag-shopping" style="margin-right:0.5rem;"></i>
+                            Add to Cart
+                        </button>
+                        <button class="btn-icon" onclick="toggleWishlist(1)" id="pdpWishlistBtn" aria-label="Wishlist">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                    </div>
+
+                    <div class="pdp-delivery">
+                        <div class="pdp-delivery-row"><i class="fa-solid fa-truck"></i><span><strong>Free delivery</strong> on orders over $75</span></div>
+                        <div class="pdp-delivery-row"><i class="fa-solid fa-rotate-left"></i><span><strong>Free returns</strong> within 30 days</span></div>
+                        <div class="pdp-delivery-row"><i class="fa-solid fa-lock"></i><span><strong>Secure checkout</strong> &mdash; SSL encrypted</span></div>
+                    </div>
+
+                    <div class="pdp-accordion">
+                        <div class="pdp-accordion-item" id="pdpAcc0">
+                            <button class="pdp-accordion-trigger" onclick="pdpToggleAccordion(0)">Materials & Care <i class="fa-solid fa-plus"></i></button>
+                            <div class="pdp-accordion-body">Made from GOTS-certified organic cotton and sustainably sourced materials. Machine wash cold on gentle cycle. Tumble dry low. Do not bleach.</div>
+                        </div>
+                        <div class="pdp-accordion-item" id="pdpAcc1">
+                            <button class="pdp-accordion-trigger" onclick="pdpToggleAccordion(1)">Sizing & Fit <i class="fa-solid fa-plus"></i></button>
+                            <div class="pdp-accordion-body">Available in newborn through 24 months. We recommend sizing up for a relaxed fit. Refer to our size guide for exact measurements.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pdp-related container">
+            <h2 class="title-md">You May Also Like</h2>
+            <div class="grid" id="relatedProductsGrid">
+                <!-- Related products can still be injected or hardcoded -->
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -91,105 +198,37 @@
 
     <script src="js/main.js"></script>
     <script>
-        /**
-         * PRODUCT DETAIL PAGE LOGIC
-         */
+        // Simple logic for the static PDP
         let pdpQty = 1;
-
         window.pdpChangeQty = (delta) => {
             pdpQty = Math.max(1, pdpQty + delta);
-            const el = document.getElementById('pdpQty');
-            if (el) el.textContent = pdpQty;
+            document.getElementById('pdpQty').textContent = pdpQty;
         };
-
         window.pdpAddToCart = (id) => {
-            const product = products.find(p => p.id === id);
-            if (!product || !product.inStock) return;
-            const existing = state.cart.find(item => item.id === id);
-            if (existing) {
-                existing.quantity += pdpQty;
-            } else {
-                state.cart.push({ ...product, quantity: pdpQty });
-            }
-            saveState();
-            renderCart();
-            document.getElementById('cartSidebar').classList.add('active');
-            document.getElementById('overlay').classList.add('active');
-            showToast(`${product.name} added to cart`);
+            addToCart(id, pdpQty);
         };
-
         window.pdpSelectThumb = (el, img) => {
             document.querySelectorAll('.pdp-thumb').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
             const mainImg = document.getElementById('pdpMainImage');
-            if (mainImg) {
-                mainImg.style.opacity = '0';
-                setTimeout(() => {
-                    mainImg.src = img;
-                    mainImg.style.opacity = '1';
-                }, 200);
-            }
+            mainImg.style.opacity = '0';
+            setTimeout(() => { mainImg.src = img; mainImg.style.opacity = '1'; }, 200);
         };
-
         window.pdpToggleAccordion = (index) => {
             const item = document.getElementById(`pdpAcc${index}`);
-            if (!item) return;
             const isOpen = item.classList.contains('open');
             document.querySelectorAll('.pdp-accordion-item').forEach(i => i.classList.remove('open'));
             if (!isOpen) item.classList.add('open');
         };
 
-        const renderPDP = (id) => {
-            const p = products.find(pr => pr.id === id);
-            if (!p) {
-                document.getElementById('pdpRoot').innerHTML = '<div class="container" style="padding:10rem 0; text-align:center;"><h2>Product not found.</h2><a href="shop.html" class="btn btn-primary" style="margin-top:2rem;">Back to Shop</a></div>';
-                return;
-            }
-
-            document.title = `${p.name} | Aura Luxury Baby`;
-            const starsHtml = '<i class="fa-solid fa-star"></i>'.repeat(Math.floor(p.rating)) + (p.rating % 1 !== 0 ? '<i class="fa-solid fa-star-half-stroke"></i>' : '');
-            
-            const related = products.filter(pr => pr.category === p.category && pr.id !== p.id).slice(0, 4);
-            const thumbImages = [p.image, "https://images.unsplash.com/photo-1544126592-807daa2b565b?auto=format&fit=crop&q=80&w=400", "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&q=80&w=400", "https://images.unsplash.com/photo-1522771935876-2497116a7a98?auto=format&fit=crop&q=80&w=400"];
-
-            const content = `
-                <div class="container">
-                    <div class="pdp-layout">
-                        <div class="pdp-gallery reveal">
-                            <div class="pdp-main-img">
-                                <div class="pdp-badge">${p.bestSeller ? '<span class="badge-tag gold">Bestseller</span>' : ''}</div>
-                                <img src="${p.image}" id="pdpMainImage" alt="${p.name}" style="width:100%; height:100%; object-fit:cover;">
-                            </div>
-                            <div class="pdp-thumbnails">${thumbImages.map((img, i) => `<div class="pdp-thumb ${i === 0 ? 'active' : ''}" onclick="pdpSelectThumb(this, '${img}')"><img src="${img}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-md);"></div>`).join('')}</div>
-                        </div>
-                        <div class="pdp-info reveal">
-                            <nav class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span><a href="shop.html">Shop</a><span class="sep">/</span><span class="current">${p.name}</span></nav>
-                            <p class="pdp-category">${p.category}</p>
-                            <h1 class="pdp-title">${p.name}</h1>
-                            <div class="pdp-rating-row"><span class="pdp-stars">${starsHtml}</span><span class="pdp-review-count">(24 reviews)</span></div>
-                            <div class="pdp-price-row"><span class="pdp-price">${formatPrice(p.price)}</span></div>
-                            <p class="pdp-desc">${p.desc}</p>
-                            <div class="pdp-qty-row"><div class="pdp-qty-ctrl"><button class="pdp-qty-btn" onclick="pdpChangeQty(-1)">&minus;</button><span class="pdp-qty-val" id="pdpQty">1</span><button class="pdp-qty-btn" onclick="pdpChangeQty(1)">+</button></div></div>
-                            <div class="pdp-cta">
-                                <button class="btn btn-primary" onclick="pdpAddToCart(${p.id})">Add to Cart</button>
-                                <button class="btn-icon" onclick="toggleWishlist(${p.id})" id="pdpWishlistBtn"><i class="fa-${state.wishlist.includes(p.id) ? 'solid' : 'regular'} fa-heart"></i></button>
-                            </div>
-                            <div class="pdp-accordion">
-                                <div class="pdp-accordion-item" id="pdpAcc0"><button class="pdp-accordion-trigger" onclick="pdpToggleAccordion(0)">Materials & Care <i class="fa-solid fa-plus"></i></button><div class="pdp-accordion-body">Organic cotton and sustainably sourced materials.</div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                ${related.length > 0 ? `<div class="pdp-related container"><h2 class="title-md">You May Also Like</h2><div class="grid">${related.map(r => generateProductCard(r)).join('')}</div></div>` : ''}
-            `;
-            document.getElementById('pdpRoot').innerHTML = content;
-            initObservers();
-        };
-
         document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = parseInt(urlParams.get('id'));
-            renderPDP(id);
+            // Render some related products statically or via small helper
+            const relatedGrid = document.getElementById('relatedProductsGrid');
+            if(relatedGrid) {
+                const related = products.filter(p => p.category === 'Clothing' && p.id !== 1).slice(0, 4);
+                relatedGrid.innerHTML = related.map(r => generateProductCard(r)).join('');
+                initObservers();
+            }
         });
     </script>
 </body>
