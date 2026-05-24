@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail | Aura Luxury Baby Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">AURA.</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="about.html" class="nav-link">Our Story</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="themeToggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+                <button id="searchBtn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button aria-label="Wishlist"><i class="fa-regular fa-heart"></i><span class="badge" id="wishlistCount">0</span></button>
+                <button id="cartBtn" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i><span class="badge" id="cartCount">0</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pdpRoot" style="padding:50px 0;">
+        <!-- Injected via JS -->
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem; display: block;">AURA.</a>
+                    <p class="text-muted" style="max-width: 250px;">Curated luxury essentials for the modern nursery. Gentle on baby, elegant for your home.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html?cat=Clothing">Clothing</a></li>
+                        <li><a href="shop.html?cat=Nursery">Nursery</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Baby. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="sidebar" id="cartSidebar">
+        <div class="sidebar-header"><h3>Your Cart</h3><i class="fa-solid fa-xmark close-btn" id="closeCart"></i></div>
+        <div class="sidebar-content" id="cartItems"></div>
+        <div class="sidebar-footer">
+            <div class="cart-total"><span>Subtotal</span><span id="cartTotalValue">$0.00</span></div>
+            <button class="btn btn-primary" style="width: 100%;" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <div class="modal" id="searchModal">
+        <i class="fa-solid fa-xmark close-btn modal-close" id="closeSearch"></i>
+        <div class="search-input-wrap"><input type="text" id="searchInput" placeholder="Search..."><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div id="searchResults" class="grid"></div>
+    </div>
+
+    <div class="modal" id="quickViewModal">
+        <i class="fa-solid fa-xmark close-btn modal-close" id="closeQuickView"></i>
+        <div class="qv-grid" id="quickViewContent"></div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="bottom-nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="shop.html" class="bottom-nav-item"><i class="fa-solid fa-bag-shopping"></i><span>Shop</span></a>
+        <button class="bottom-nav-item" id="bnavSearchBtn"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></button>
+        <button class="bottom-nav-item" id="bnavWishlistBtn"><i class="fa-regular fa-heart"></i><span>Wishlist</span><span class="bnav-badge" id="bnavWishlistCount">0</span></button>
+        <button class="bottom-nav-item" id="bnavCartBtn"><i class="fa-solid fa-cart-shopping"></i><span>Cart</span><span class="bnav-badge" id="bnavCartCount">0</span></button>
+    </nav>
+
+    <script src="js/main.js"></script>
+    <script>
+        /**
+         * PRODUCT DETAIL PAGE LOGIC
+         */
+        let pdpQty = 1;
+
+        window.pdpChangeQty = (delta) => {
+            pdpQty = Math.max(1, pdpQty + delta);
+            const el = document.getElementById('pdpQty');
+            if (el) el.textContent = pdpQty;
+        };
+
+        window.pdpAddToCart = (id) => {
+            const product = products.find(p => p.id === id);
+            if (!product || !product.inStock) return;
+            const existing = state.cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity += pdpQty;
+            } else {
+                state.cart.push({ ...product, quantity: pdpQty });
+            }
+            saveState();
+            renderCart();
+            document.getElementById('cartSidebar').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+            showToast(`${product.name} added to cart`);
+        };
+
+        window.pdpSelectThumb = (el, img) => {
+            document.querySelectorAll('.pdp-thumb').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            const mainImg = document.getElementById('pdpMainImage');
+            if (mainImg) {
+                mainImg.style.opacity = '0';
+                setTimeout(() => {
+                    mainImg.src = img;
+                    mainImg.style.opacity = '1';
+                }, 200);
+            }
+        };
+
+        window.pdpToggleAccordion = (index) => {
+            const item = document.getElementById(`pdpAcc${index}`);
+            if (!item) return;
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.pdp-accordion-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        };
+
+        const renderPDP = (id) => {
+            const p = products.find(pr => pr.id === id);
+            if (!p) {
+                document.getElementById('pdpRoot').innerHTML = '<div class="container" style="padding:10rem 0; text-align:center;"><h2>Product not found.</h2><a href="shop.html" class="btn btn-primary" style="margin-top:2rem;">Back to Shop</a></div>';
+                return;
+            }
+
+            document.title = `${p.name} | Aura Luxury Baby`;
+            const starsHtml = '<i class="fa-solid fa-star"></i>'.repeat(Math.floor(p.rating)) + (p.rating % 1 !== 0 ? '<i class="fa-solid fa-star-half-stroke"></i>' : '');
+            
+            const related = products.filter(pr => pr.category === p.category && pr.id !== p.id).slice(0, 4);
+            const thumbImages = [p.image, "https://images.unsplash.com/photo-1544126592-807daa2b565b?auto=format&fit=crop&q=80&w=400", "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&q=80&w=400", "https://images.unsplash.com/photo-1522771935876-2497116a7a98?auto=format&fit=crop&q=80&w=400"];
+
+            const content = `
+                <div class="container">
+                    <div class="pdp-layout">
+                        <div class="pdp-gallery reveal">
+                            <div class="pdp-main-img">
+                                <div class="pdp-badge">${p.bestSeller ? '<span class="badge-tag gold">Bestseller</span>' : ''}</div>
+                                <img src="${p.image}" id="pdpMainImage" alt="${p.name}" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="pdp-thumbnails">${thumbImages.map((img, i) => `<div class="pdp-thumb ${i === 0 ? 'active' : ''}" onclick="pdpSelectThumb(this, '${img}')"><img src="${img}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-md);"></div>`).join('')}</div>
+                        </div>
+                        <div class="pdp-info reveal">
+                            <nav class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span><a href="shop.html">Shop</a><span class="sep">/</span><span class="current">${p.name}</span></nav>
+                            <p class="pdp-category">${p.category}</p>
+                            <h1 class="pdp-title">${p.name}</h1>
+                            <div class="pdp-rating-row"><span class="pdp-stars">${starsHtml}</span><span class="pdp-review-count">(24 reviews)</span></div>
+                            <div class="pdp-price-row"><span class="pdp-price">${formatPrice(p.price)}</span></div>
+                            <p class="pdp-desc">${p.desc}</p>
+                            <div class="pdp-qty-row"><div class="pdp-qty-ctrl"><button class="pdp-qty-btn" onclick="pdpChangeQty(-1)">&minus;</button><span class="pdp-qty-val" id="pdpQty">1</span><button class="pdp-qty-btn" onclick="pdpChangeQty(1)">+</button></div></div>
+                            <div class="pdp-cta">
+                                <button class="btn btn-primary" onclick="pdpAddToCart(${p.id})">Add to Cart</button>
+                                <button class="btn-icon" onclick="toggleWishlist(${p.id})" id="pdpWishlistBtn"><i class="fa-${state.wishlist.includes(p.id) ? 'solid' : 'regular'} fa-heart"></i></button>
+                            </div>
+                            <div class="pdp-accordion">
+                                <div class="pdp-accordion-item" id="pdpAcc0"><button class="pdp-accordion-trigger" onclick="pdpToggleAccordion(0)">Materials & Care <i class="fa-solid fa-plus"></i></button><div class="pdp-accordion-body">Organic cotton and sustainably sourced materials.</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ${related.length > 0 ? `<div class="pdp-related container"><h2 class="title-md">You May Also Like</h2><div class="grid">${related.map(r => generateProductCard(r)).join('')}</div></div>` : ''}
+            `;
+            document.getElementById('pdpRoot').innerHTML = content;
+            initObservers();
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = parseInt(urlParams.get('id'));
+            renderPDP(id);
+        });
+    </script>
+</body>
+</html>

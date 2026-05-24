@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story | Aura Luxury Baby Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Page Specific Styles */
+        .about-hero {
+            padding: 10rem 0 6rem;
+            background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-secondary) 100%);
+            text-align: center;
+        }
+        
+        .value-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            height: 100%;
+        }
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glass-shadow);
+            border-color: var(--accent-gold);
+        }
+        .value-icon {
+            font-size: 3.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        .value-card:hover .value-icon {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        
+        .quote-section {
+            padding: 10rem 0;
+            text-align: center;
+            background: var(--bg-main);
+            position: relative;
+        }
+        .quote-section::before {
+            content: '"';
+            position: absolute;
+            top: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 15rem;
+            font-family: var(--font-heading);
+            color: var(--accent-gold);
+            opacity: 0.05;
+            line-height: 1;
+        }
+        .quote-text {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.3;
+            color: var(--text-main);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: var(--glass-border);
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+            width: 50%;
+            padding-right: 3rem;
+            text-align: right;
+        }
+        .timeline-item:nth-child(even) {
+            margin-left: auto;
+            padding-right: 0;
+            padding-left: 3rem;
+            text-align: left;
+        }
+        .timeline-dot {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 12px; height: 12px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            transform: translate(-50%, 0);
+            z-index: 1;
+        }
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: 0;
+        }
+        .timeline-date {
+            font-weight: 600;
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before { left: 0; }
+            .timeline-item { width: 100%; text-align: left !important; padding-left: 2rem !important; padding-right: 0 !important; }
+            .timeline-dot { left: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">AURA.</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="about.html" class="nav-link active">Our Story</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="themeToggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+                <button id="searchBtn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button aria-label="Wishlist"><i class="fa-regular fa-heart"></i><span class="badge" id="wishlistCount">0</span></button>
+                <button id="cartBtn" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i><span class="badge" id="cartCount">0</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="about-hero">
+            <div class="container reveal">
+                <span class="hero-subtitle">Est. 2018</span>
+                <h1 class="title-lg">Crafting moments of pure joy.</h1>
+                <p class="text-lead" style="max-width: 700px; margin: 2rem auto 0;">From the very first thread to the final stitch, our journey is defined by a commitment to the most precious things in life.</p>
+            </div>
+        </section>
+
+        <section class="section-padding container">
+            <div class="editorial-split reveal">
+                <div class="editorial-text">
+                    <span class="hero-subtitle">Our Journey</span>
+                    <h2 class="title-md">Born from Love.</h2>
+                    <p class="text-lead" style="margin-top: 2rem;">Aura was founded on a simple principle: that the first years of a child's life should be surrounded by the purest materials and the most thoughtful design.</p>
+                    <p class="text-lead" style="margin-top: 1rem;">What started as a personal quest for the softest organic cotton has grown into a global community of parents who refuse to compromise on quality or aesthetics. We believe that your home should feel like a sanctuary, and every piece of baby gear should compliment that harmony.</p>
+                </div>
+                <div class="editorial-img" style="background-image: url('https://images.unsplash.com/photo-1519689689353-89701638427f?auto=format&fit=crop&q=80&w=800'); background-size: cover; background-position: center;"></div>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="container reveal">
+                <p class="quote-text">"We don't just sell baby products; we curate the environment in which your child's first memories are made."</p>
+                <p class="testimonial-author" style="margin-top: 3rem;">— Elena Ross, Founder</p>
+            </div>
+        </section>
+
+        <section class="section-padding container" style="background: var(--bg-secondary); border-radius: var(--radius-xl);">
+            <div class="text-center reveal" style="margin-bottom: 5rem;">
+                <span class="hero-subtitle">Our Foundations</span>
+                <h2 class="title-md">Values that guide us.</h2>
+            </div>
+            
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="reveal">
+                    <div class="value-card">
+                        <i class="fa-solid fa-leaf value-icon"></i>
+                        <h3 class="title-sm">100% Organic</h3>
+                        <p class="text-muted">We exclusively use GOTS-certified organic cotton and sustainable materials that are gentle on both your baby and the planet.</p>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="value-card">
+                        <i class="fa-solid fa-hand-holding-heart value-icon"></i>
+                        <h3 class="title-sm">Ethically Sourced</h3>
+                        <p class="text-muted">Every artisan in our supply chain is treated with respect, ensuring fair wages and safe working conditions across the globe.</p>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="value-card">
+                        <i class="fa-solid fa-infinity value-icon"></i>
+                        <h3 class="title-sm">Heirloom Quality</h3>
+                        <p class="text-muted">Our pieces are designed with timeless aesthetics and durable construction, meant to be cherished and passed down.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding container">
+            <div class="text-center reveal" style="margin-bottom: 5rem;">
+                <span class="hero-subtitle">The Aura Path</span>
+                <h2 class="title-md">Our Evolution</h2>
+            </div>
+
+            <div class="timeline reveal">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">September 2018</span>
+                    <h3>The Workshop</h3>
+                    <p class="text-muted">Aura begins in a small studio in Brooklyn with a single knitting machine and a dream of purer nursery essentials.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">March 2020</span>
+                    <h3>Going Global</h3>
+                    <p class="text-muted">We expand our artisan network to include traditional weavers in Portugal and Peru, blending modern design with ancient craft.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">June 2022</span>
+                    <h3>Sustainability Milestone</h3>
+                    <p class="text-muted">Aura becomes 100% plastic-free in all packaging, leading the industry in sustainable shipping practices.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">Today</span>
+                    <h3>The New Standard</h3>
+                    <p class="text-muted">Trusted by thousands of families worldwide, we continue to innovate the world of luxury baby essentials.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem; display: block;">AURA.</a>
+                    <p class="text-muted">Curated luxury essentials for the modern nursery.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Baby. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="sidebar" id="cartSidebar">
+        <div class="sidebar-header"><h3>Your Cart</h3><i class="fa-solid fa-xmark close-btn" id="closeCart"></i></div>
+        <div class="sidebar-content" id="cartItems"></div>
+        <div class="sidebar-footer">
+            <div class="cart-total"><span>Subtotal</span><span id="cartTotalValue">$0.00</span></div>
+            <button class="btn btn-primary" style="width: 100%;" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <div class="modal" id="searchModal">
+        <i class="fa-solid fa-xmark close-btn modal-close" id="closeSearch"></i>
+        <div class="search-input-wrap"><input type="text" id="searchInput" placeholder="Search..."><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div id="searchResults" class="grid"></div>
+    </div>
+
+    <div class="modal" id="quickViewModal">
+        <i class="fa-solid fa-xmark close-btn modal-close" id="closeQuickView"></i>
+        <div class="qv-grid" id="quickViewContent"></div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="bottom-nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="shop.html" class="bottom-nav-item"><i class="fa-solid fa-bag-shopping"></i><span>Shop</span></a>
+        <button class="bottom-nav-item" id="bnavSearchBtn"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></button>
+        <button class="bottom-nav-item" id="bnavWishlistBtn"><i class="fa-regular fa-heart"></i><span>Wishlist</span><span class="bnav-badge" id="bnavWishlistCount">0</span></button>
+        <button class="bottom-nav-item" id="bnavCartBtn"><i class="fa-solid fa-cart-shopping"></i><span>Cart</span><span class="bnav-badge" id="bnavCartCount">0</span></button>
+    </nav>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

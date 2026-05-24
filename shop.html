@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Aura Luxury Baby Essentials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">AURA.</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link active">Shop</a></li>
+                <li><a href="about.html" class="nav-link">Our Story</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="themeToggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+                <button id="searchBtn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button aria-label="Wishlist"><i class="fa-regular fa-heart"></i><span class="badge" id="wishlistCount">0</span></button>
+                <button id="cartBtn" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i><span class="badge" id="cartCount">0</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="app-root">
+        <div class="shop-header reveal">
+            <div class="container">
+                <h1 class="title-lg">The Collection</h1>
+                <p class="text-lead" style="max-width: 600px; margin: 1rem auto 0;">Explore our complete range of carefully considered essentials.</p>
+            </div>
+        </div>
+        <div class="container" style="margin-bottom: 5rem;">
+            <div class="active-filters" id="activeFilterTags"></div>
+            <div class="shop-filters reveal">
+                <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; flex:1;">
+                    <button class="filter-btn" onclick="openFilterSidebar()" id="filterToggleBtn">
+                        <i class="fa-solid fa-sliders"></i> Filters
+                        <span class="filter-count" id="filterCountBadge">0</span>
+                    </button>
+                    <div class="filter-chips">
+                        <div class="chip active" onclick="filterProducts('All', this)">All</div>
+                        <div class="chip" onclick="filterProducts('Clothing', this)">Clothing</div>
+                        <div class="chip" onclick="filterProducts('Nursery', this)">Nursery</div>
+                        <div class="chip" onclick="filterProducts('Toys', this)">Toys</div>
+                        <div class="chip" onclick="filterProducts('Bath', this)">Bath</div>
+                    </div>
+                </div>
+                <select class="sort-select" id="sortSelect" onchange="sortProducts(this.value)">
+                    <option value="featured">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Top Rated</option>
+                </select>
+            </div>
+            <p class="results-count" id="resultsCount"></p>
+            <div class="grid" id="shopGrid">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem; display: block;">AURA.</a>
+                    <p class="text-muted" style="max-width: 250px;">Curated luxury essentials for the modern nursery. Gentle on baby, elegant for your home.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html?cat=Clothing">Clothing</a></li>
+                        <li><a href="shop.html?cat=Nursery">Nursery</a></li>
+                        <li><a href="shop.html?cat=Toys">Toys</a></li>
+                        <li><a href="shop.html?cat=Bath">Bath & Skincare</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li>hello@aurababy.com</li>
+                        <li>+1 (800) 123-4567</li>
+                        <li>123 Luxury Lane, NY</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aura Baby. All rights reserved.</p>
+                <div class="payment-icons" style="display: flex; gap: 1rem; font-size: 1.5rem;">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-cc-amex"></i>
+                    <i class="fa-brands fa-cc-apple-pay"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlays & Modals -->
+    <div class="overlay" id="overlay"></div>
+
+    <div class="filter-sidebar" id="filterSidebar">
+        <div class="filter-sidebar-header">
+            <h3>Filters</h3>
+            <i class="fa-solid fa-xmark close-btn" id="closeFilter"></i>
+        </div>
+        <div class="filter-sidebar-body">
+            <div class="filter-group">
+                <p class="filter-group-title">Category</p>
+                <div class="filter-option" data-filter="category" data-value="Clothing" onclick="toggleFilterOption(this)"><span class="filter-checkbox"></span> Clothing</div>
+                <div class="filter-option" data-filter="category" data-value="Nursery" onclick="toggleFilterOption(this)"><span class="filter-checkbox"></span> Nursery</div>
+                <div class="filter-option" data-filter="category" data-value="Toys" onclick="toggleFilterOption(this)"><span class="filter-checkbox"></span> Toys</div>
+                <div class="filter-option" data-filter="category" data-value="Bath" onclick="toggleFilterOption(this)"><span class="filter-checkbox"></span> Bath</div>
+            </div>
+            <div class="filter-group">
+                <p class="filter-group-title">Price Range</p>
+                <div class="price-range-wrap">
+                    <div class="price-input-wrap"><input type="number" class="price-input" id="priceMin" placeholder="Min" oninput="applyFilters()"></div>
+                    <span class="price-range-sep">—</span>
+                    <div class="price-input-wrap"><input type="number" class="price-input" id="priceMax" placeholder="Max" oninput="applyFilters()"></div>
+                </div>
+            </div>
+            <div class="filter-group">
+                <p class="filter-group-title">Minimum Rating</p>
+                <div class="rating-option" data-value="5" onclick="toggleRatingFilter(this)"><span class="rating-stars">★★★★★</span><span class="rating-radio"></span></div>
+                <div class="rating-option" data-value="4" onclick="toggleRatingFilter(this)"><span class="rating-stars">★★★★☆</span><span class="rating-radio"></span></div>
+            </div>
+        </div>
+        <div class="filter-sidebar-footer">
+            <button class="btn btn-outline" style="flex:1;" onclick="clearAllFilters()">Clear All</button>
+            <button class="btn btn-primary" style="flex:1;" onclick="closeModals()">Show Results</button>
+        </div>
+    </div>
+
+    <div class="sidebar" id="cartSidebar">
+        <div class="sidebar-header"><h3>Your Cart</h3><i class="fa-solid fa-xmark close-btn" id="closeCart"></i></div>
+        <div class="sidebar-content" id="cartItems"></div>
+        <div class="sidebar-footer">
+            <div class="cart-total"><span>Subtotal</span><span id="cartTotalValue">$0.00</span></div>
+            <button class="btn btn-primary" style="width: 100%;" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <div class="modal" id="searchModal">
+        <i class="fa-solid fa-xmark close-btn modal-close" id="closeSearch"></i>
+        <div class="search-input-wrap"><input type="text" id="searchInput" placeholder="Search..."><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div id="searchResults" class="grid"></div>
+    </div>
+
+    <div class="modal" id="quickViewModal">
+        <i class="fa-solid fa-xmark close-btn modal-close" id="closeQuickView"></i>
+        <div class="qv-grid" id="quickViewContent"></div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="index.html" class="bottom-nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="shop.html" class="bottom-nav-item active"><i class="fa-solid fa-bag-shopping"></i><span>Shop</span></a>
+        <button class="bottom-nav-item" id="bnavSearchBtn"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></button>
+        <button class="bottom-nav-item" id="bnavWishlistBtn"><i class="fa-regular fa-heart"></i><span>Wishlist</span><span class="bnav-badge" id="bnavWishlistCount">0</span></button>
+        <button class="bottom-nav-item" id="bnavCartBtn"><i class="fa-solid fa-cart-shopping"></i><span>Cart</span><span class="bnav-badge" id="bnavCartCount">0</span></button>
+    </nav>
+
+    <script src="js/main.js"></script>
+    <script>
+        /**
+         * SHOP PAGE LOGIC (MPA Version)
+         */
+        let currentFilteredProducts = [...products];
+        let filterState = { categories: [], minRating: null, minPrice: null, maxPrice: null, inStockOnly: false };
+
+        const renderShopGrid = (items) => {
+            const grid = document.getElementById('shopGrid');
+            if(!grid) return;
+            const countEl = document.getElementById('resultsCount');
+            if(countEl) countEl.textContent = items.length === 0 ? '' : `${items.length} product${items.length !== 1 ? 's' : ''}`;
+            if(items.length === 0) {
+                grid.innerHTML = '<p class="text-muted" style="grid-column: 1/-1; text-align: center; padding: 3rem;">No products found. <span style="cursor:pointer;text-decoration:underline;" onclick="clearAllFilters()">Clear filters</span></p>';
+                return;
+            }
+            grid.innerHTML = items.map(p => generateProductCard(p)).join('');
+            initObservers();
+        };
+
+        window.filterProducts = (category, btnElement, initialLoad = false) => {
+            if(btnElement) {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+            currentFilteredProducts = category === 'All'
+                ? [...products]
+                : products.filter(p => p.category === category);
+            
+            const sortVal = document.getElementById('sortSelect')?.value || 'featured';
+            window.sortProducts(sortVal, true);
+            if(!initialLoad) renderShopGrid(currentFilteredProducts);
+        };
+
+        window.sortProducts = (sortType, skipRender = false) => {
+            switch(sortType) {
+                case 'price-low': currentFilteredProducts.sort((a,b) => a.price - b.price); break;
+                case 'price-high': currentFilteredProducts.sort((a,b) => b.price - a.price); break;
+                case 'rating': currentFilteredProducts.sort((a,b) => b.rating - a.rating); break;
+                case 'featured': currentFilteredProducts.sort((a,b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0)); break;
+            }
+            if(!skipRender) renderShopGrid(currentFilteredProducts);
+        };
+
+        window.openFilterSidebar = () => {
+            document.getElementById('filterSidebar').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        };
+
+        window.toggleFilterOption = (el) => {
+            el.classList.toggle('checked');
+            const filter = el.dataset.filter;
+            const value = el.dataset.value;
+            if(filter === 'category') {
+                if(el.classList.contains('checked')) {
+                    if(!filterState.categories.includes(value)) filterState.categories.push(value);
+                } else {
+                    filterState.categories = filterState.categories.filter(c => c !== value);
+                }
+            }
+            applyFilters();
+        };
+
+        window.toggleRatingFilter = (el) => {
+            const allRating = document.querySelectorAll('.rating-option');
+            const wasChecked = el.classList.contains('checked');
+            allRating.forEach(r => r.classList.remove('checked'));
+            if(!wasChecked) {
+                el.classList.add('checked');
+                filterState.minRating = parseFloat(el.dataset.value);
+            } else {
+                filterState.minRating = null;
+            }
+            applyFilters();
+        };
+
+        window.applyFilters = () => {
+            const minP = parseFloat(document.getElementById('priceMin')?.value) || null;
+            const maxP = parseFloat(document.getElementById('priceMax')?.value) || null;
+            filterState.minPrice = minP;
+            filterState.maxPrice = maxP;
+
+            let result = [...products];
+            if(filterState.categories.length > 0) result = result.filter(p => filterState.categories.includes(p.category));
+            if(filterState.minPrice !== null) result = result.filter(p => p.price >= filterState.minPrice);
+            if(filterState.maxPrice !== null) result = result.filter(p => p.price <= filterState.maxPrice);
+            if(filterState.minRating !== null) result = result.filter(p => p.rating >= filterState.minRating);
+
+            currentFilteredProducts = result;
+            const sortVal = document.getElementById('sortSelect')?.value || 'featured';
+            window.sortProducts(sortVal, true);
+            renderShopGrid(currentFilteredProducts);
+            updateFilterBadge();
+        };
+
+        const updateFilterBadge = () => {
+            let count = filterState.categories.length;
+            if(filterState.minRating) count++;
+            if(filterState.minPrice || filterState.maxPrice) count++;
+            const badge = document.getElementById('filterCountBadge');
+            if(badge) {
+                badge.textContent = count;
+                badge.classList.toggle('visible', count > 0);
+            }
+        };
+
+        window.clearAllFilters = () => {
+            filterState = { categories: [], minRating: null, minPrice: null, maxPrice: null, inStockOnly: false };
+            document.querySelectorAll('.filter-option.checked, .rating-option.checked').forEach(el => el.classList.remove('checked'));
+            const mn = document.getElementById('priceMin'); const mx = document.getElementById('priceMax');
+            if(mn) mn.value = ''; if(mx) mx.value = '';
+            currentFilteredProducts = [...products];
+            renderShopGrid(currentFilteredProducts);
+            updateFilterBadge();
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const cat = urlParams.get('cat') || 'All';
+            if (cat !== 'All') {
+                const chips = document.querySelectorAll('.chip');
+                chips.forEach(c => {
+                    if(c.textContent === cat) c.classList.add('active');
+                    else c.classList.remove('active');
+                });
+                filterProducts(cat, null, true);
+            }
+            renderShopGrid(currentFilteredProducts);
+        });
+    </script>
+</body>
+</html>
